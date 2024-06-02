@@ -59,8 +59,19 @@
                         <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
                     </div>
                 </div>
+                dsd{{ user }}
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from "pinia"
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+const getUsers = userStore.getUsers
+
+onMounted(() => {
+    getUsers()
+})
 </script>
