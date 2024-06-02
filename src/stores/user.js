@@ -2,6 +2,7 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 import { Toast, Alert, Swal } from '@/mixins/swal';
+import axios from 'axios';
 import { 
   axiosSignupUser,
   axiosLoginUser,
@@ -60,11 +61,41 @@ export const useUserStore = defineStore('userStore', () => {
   });
   const signupLoading = ref(false);
 
+  // const signup = async () => {
+  //   console.log('signup', signupData.value)
+  //   signupLoading.value = true;
+  //   try {
+  //     const res = await axiosSignupUser(signupData.value);
+  //     console.log(res)
+  //     Toast.fire({
+  //       icon: 'success',
+  //       title: '註冊成功，請登入'
+  //     });
+  //     resetSignupForm();
+  //     // router.push('/login');
+  //   } catch (error) {
+  //     console.log('註冊失敗', error);
+  //     Alert.fire({
+  //       icon: 'error',
+  //       title: '註冊失敗，請檢查您的資料'
+  //     });
+  //   } finally { 
+  //     signupLoading.value = false;
+  //   }
+  // };
+
   const signup = async () => {
     console.log('signup', signupData.value)
     signupLoading.value = true;
     try {
-      await axiosSignupUser(signupData.value);
+    //   const res = await axios.post('https://music-tutor-backend.onrender.com/users/signup', {
+    //     "name": "hihi222",
+    //     "email": "dddddd000@hhhh.com",
+    //     "password": "aaaaaaaaaa0",
+    //     "confirmPassword": "aaaaaaaaaa0"
+    // })
+    const res = await axios.post('https://music-tutor-backend.onrender.com/users/signup',JSON.stringify(signupData.value))
+    console.log(res)
       Toast.fire({
         icon: 'success',
         title: '註冊成功，請登入'
@@ -81,6 +112,8 @@ export const useUserStore = defineStore('userStore', () => {
       signupLoading.value = false;
     }
   };
+
+
   const resetSignupForm = () => {
     signupData.value.name = '';
     signupData.value.email = '';
