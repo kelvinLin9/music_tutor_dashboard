@@ -107,3 +107,9 @@
 <script setup>
 
 </script>
+
+<style scoped>
+.logo {
+    width: 100px;
+}
+</style>

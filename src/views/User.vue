@@ -1,8 +1,8 @@
 <template>
                 <div class="card shadow border-0 mb-7">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <h5 class="mb-0">Applications</h5>
-                    </div>
+                    </div> -->
                     <div class="table-responsive">
                         <table class="table table-hover table-nowrap">
                             <thead class="thead-light">
@@ -20,35 +20,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-for="item in users" :key="item">
                                     <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
+                                        <!-- <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2"> -->
                                         <a class="text-heading font-semibold" href="#">
-                                            Robert Fox
+                                            {{ item.name }}
                                         </a>
                                     </td>
                                     <td>
-                                        Feb 15, 2021
+                                      {{ item.email }}
                                     </td>
                                     <td>
-                                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Dribbble
-                                        </a>
+                                      {{ item.createdAt.split('T')[0] }}
                                     </td>
                                     <td>
-                                        $3.500
+                                      {{ item.updatedAt.split('T')[0] }}
                                     </td>
                                     <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i>Scheduled
-                                        </span>
+                                      {{ item.courses }}
                                     </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                    <td>
+                                      {{ item.userRole }}
+                                    </td>
+                                    <td>
+                                      <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <i class="bi bi-pen"></i>
+                                    </td>
+                                    <td>
+                                      <i class="bi bi-trash"></i>
                                     </td>
                                 </tr>
 
@@ -56,19 +60,19 @@
                         </table>
                     </div>
                     <div class="card-footer border-0 py-5">
-                        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+                        <!-- <span class="text-muted text-sm">Showing 10 items out of 250 results found</span> -->
                     </div>
                 </div>
-                dsd{{ user }}
+                
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia"
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user123.js'
 
 const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
+const { users } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 
 onMounted(() => {
