@@ -41,8 +41,8 @@ export const axiosCheckUser = () => axiosInstance.get('/users/check');
 // export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
 // Verify
-export const axiosVerifyEmail = (email) => axiosInstance.post('/verify/email', { email });
-export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
+// export const axiosVerifyEmail = (email) => axiosInstance.post('/verify/email', { email });
+// export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
 
 // News(已修正 待整理)
 

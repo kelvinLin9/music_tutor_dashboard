@@ -7,8 +7,8 @@ import {
   axiosSignupUser,
   axiosLoginUser,
   axiosCheckUser,
-  axiosVerifyEmail,
-  axiosGenerateEmailCode,
+  // axiosVerifyEmail,
+  // axiosGenerateEmailCode,
 } from '@/api/userApi';
 
 export const useUserStore = defineStore('userStore', () => {
