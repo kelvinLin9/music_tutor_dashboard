@@ -232,7 +232,6 @@
           </div>
         </main>
       </div>
-ss {{ isChecked }}
 </div>
 </template>
 

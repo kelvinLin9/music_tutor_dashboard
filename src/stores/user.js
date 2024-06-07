@@ -61,41 +61,12 @@ export const useUserStore = defineStore('userStore', () => {
   });
   const signupLoading = ref(false);
 
-  // const signup = async () => {
-  //   console.log('signup', signupData.value)
-  //   signupLoading.value = true;
-  //   try {
-  //     const res = await axiosSignupUser(signupData.value);
-  //     console.log(res)
-  //     Toast.fire({
-  //       icon: 'success',
-  //       title: '註冊成功，請登入'
-  //     });
-  //     resetSignupForm();
-  //     // router.push('/login');
-  //   } catch (error) {
-  //     console.log('註冊失敗', error);
-  //     Alert.fire({
-  //       icon: 'error',
-  //       title: '註冊失敗，請檢查您的資料'
-  //     });
-  //   } finally { 
-  //     signupLoading.value = false;
-  //   }
-  // };
-
   const signup = async () => {
     console.log('signup', signupData.value)
     signupLoading.value = true;
     try {
-    //   const res = await axios.post('https://music-tutor-backend.onrender.com/users/signup', {
-    //     "name": "hihi222",
-    //     "email": "dddddd000@hhhh.com",
-    //     "password": "aaaaaaaaaa0",
-    //     "confirmPassword": "aaaaaaaaaa0"
-    // })
-    const res = await axios.post('https://music-tutor-backend.onrender.com/users/signup',JSON.stringify(signupData.value))
-    console.log(res)
+      const res = await axiosSignupUser(signupData.value);
+      console.log(res)
       Toast.fire({
         icon: 'success',
         title: '註冊成功，請登入'
@@ -112,6 +83,7 @@ export const useUserStore = defineStore('userStore', () => {
       signupLoading.value = false;
     }
   };
+
 
 
   const resetSignupForm = () => {
@@ -145,6 +117,11 @@ export const useUserStore = defineStore('userStore', () => {
     router.push('/')
   }
 
+  // edit
+  
+
+
+
   // forgot
   const verifyEmail = async () => {
     Swal.fire({
@@ -170,8 +147,8 @@ export const useUserStore = defineStore('userStore', () => {
     },
     allowOutsideClick: () => !Swal.isLoading()
   })
-}
-const generateEmailCode = async (email) => {
+  }
+  const generateEmailCode = async (email) => {
   try {
     const res = await axiosGenerateEmailCode(email);
     console.log('已將驗證信發送到您的信箱', res)
@@ -225,7 +202,9 @@ const forgotPassword = async () => {
   }
 }
 
-
+  const resetPasswordEmail =  () =>{
+    //
+  }
   return {
     // login
     loginLoading,
@@ -249,6 +228,6 @@ const forgotPassword = async () => {
     verifyEmail,
     generateEmailCode,
     forgotPassword,
+    resetPasswordEmail,
   }
-
 })

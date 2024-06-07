@@ -37,8 +37,8 @@ export const axiosLoginUser = (loginData) => axiosInstance.post('/users/login', 
 export const axiosSignupUser = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
 export const axiosCheckUser = () => axiosInstance.get('/users/check');
-// export const axiosGetUser = () => axiosInstance.get('/users');
-// export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
+export const axiosGetUser = () => axiosInstance.get('/users');
+export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
 // Verify
 // export const axiosVerifyEmail = (email) => axiosInstance.post('/verify/email', { email });

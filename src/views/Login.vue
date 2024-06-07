@@ -215,6 +215,7 @@ const signup = userStore.signup
 const login = userStore.login
 const checkUser = userStore.checkUser
 const verifyEmail = userStore.verifyEmail
+const resetPasswordEmail = userStore.resetPasswordEmail
 
 onMounted(() => {
   checkUser()
