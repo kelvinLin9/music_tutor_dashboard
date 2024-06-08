@@ -7,6 +7,7 @@ import {
   axiosSignupUser,
   axiosLoginUser,
   axiosCheckUser,
+  axiosEditUser,
   // axiosVerifyEmail,
   // axiosGenerateEmailCode,
 } from '@/api/userApi';
@@ -118,7 +119,10 @@ export const useUserStore = defineStore('userStore', () => {
   }
 
   // edit
-  
+  const editUser = async () => {
+    //
+    
+  }
 
 
 
@@ -188,9 +192,8 @@ export const useUserStore = defineStore('userStore', () => {
       icon: "error"
     })
   }
-}
-
-const forgotPassword = async () => {
+  }
+  const forgotPassword = async () => {
   try {
     await forgotPassword();
     Toast.fire({
@@ -200,7 +203,7 @@ const forgotPassword = async () => {
   } catch (error) {
     //
   }
-}
+  }
 
   const resetPasswordEmail =  () =>{
     //

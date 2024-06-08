@@ -49,10 +49,14 @@
                                       </div>
                                     </td>
                                     <td>
-                                      <i class="bi bi-pen"></i>
+                                      <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal" @click="userInfo = item">
+                                        <i class="bi bi-pen text-white"></i>
+                                      </div>
                                     </td>
                                     <td>
-                                      <i class="bi bi-trash"></i>
+                                      <div class="btn btn-primary">
+                                        <i class="bi bi-trash text-white"></i>
+                                      </div>
                                     </td>
                                 </tr>
 
@@ -63,10 +67,13 @@
                         <!-- <span class="text-muted text-sm">Showing 10 items out of 250 results found</span> -->
                     </div>
                 </div>
-                
+                <!-- Button trigger modal -->
+
+  <UserEdit :userInfo="userInfo" @update:user-info="updateUser"/>
 </template>
 
 <script setup>
+import UserEdit from '@/components/common/UserEdit.vue'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user123.js'
@@ -75,6 +82,7 @@ const userStore = useUserStore()
 const { users } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 
+const userInfo = ref({})
 onMounted(() => {
     getUsers()
 })
