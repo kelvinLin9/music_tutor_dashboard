@@ -166,12 +166,12 @@
                             <i class="bi bi-person-square"></i> Account
                         </a>
                     </li> -->
-                    <li class="nav-item" v-if="!isChecked">
+                    <li class="nav-item" v-if="!role">
                         <router-link class="nav-link" to="/login">
                             <i class="bi bi-door-open"></i> Login
                         </router-link>
                     </li>
-                    <li class="nav-item" v-if="isChecked">
+                    <li class="nav-item" v-if="role">
                       <div class="nav-link cursor-pointer" @click="logout()">
                         <i class="bi bi-box-arrow-left"></i> Logout
                       </div>
@@ -184,14 +184,35 @@
     <!-- Main content -->
     <div class="h-screen flex-grow-1 overflow-y-lg-auto">
         <!-- Header -->
-        <header class="bg-surface-primary border-bottom pt-6">
+        <header class="bg-surface-primary border-bottom py-3">
             <div class="container-fluid">
-                <div class="mb-npx">
+                <div class="mb-np">
                     <div class="row align-items-center">
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
-                            <h1 class="h2 mb-0 ls-tight">Application</h1>
+                            <h1 class="h2 mb-0 ls-tight">後台操作系統</h1>
                         </div>
+
+                        <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                            <div class="d-flex align-items-center ">
+                                    <div class="ms-auto me-3">
+                                        <div class="position-relative d-inline-block text-white">
+                                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar rounded-circle">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="d-block text-sm font-semibold">
+                                            {{ userInfo }}
+                                        </span>
+                                        <span class="d-block text-xs text-muted font-regular">
+                                            Paris, FR
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+
+
+
                         <!-- Actions -->
                         <!-- <div class="col-sm-6 col-12 text-sm-end">
                             <div class="mx-n1">
@@ -241,11 +262,12 @@ import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user.js'
 
 const userStore = useUserStore()
-const { isChecked } = storeToRefs(userStore)
+const { role, userInfo } = storeToRefs(userStore)
 const checkUser = userStore.checkUser
 const logout = userStore.logout
 
 onMounted(() => {
   checkUser()
+  
 })
 </script>

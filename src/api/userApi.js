@@ -9,12 +9,12 @@ export const axiosInstance = axios.create({
   },
 });
 
-console.log(axiosInstance.interceptors) 
+// console.log(axiosInstance.interceptors) 
 
 // interceptors(攔截器) 目的是在發送請求前將 token 加入 headers 
 axiosInstance.interceptors.request.use((config) => {
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)music_tutor\s*=\s*([^;]*).*$)|^.*$/, '$1');
-  console.log(token)
+  // console.log(token)
   if (token) {
     config.headers.Authorization = token;
   }
@@ -38,7 +38,10 @@ export const axiosLoginUser = (loginData) => axiosInstance.post('/users/login', 
 export const axiosSignupUser = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
 export const axiosCheckUser = () => axiosInstance.get('/users/check');
-export const axiosGetUser = () => axiosInstance.get('/users');
+export const axiosGetUser = (userId) => {
+  return axios.get(`/users/${userId}`, {
+  });
+};
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
 // Verify
@@ -54,6 +57,9 @@ export const axiosEditUser = (userData) => axiosInstance.put('/users', userData)
 
 // Orders(已修正 待整理)
 
+// Admin/User
+export const axiosAdminGetUsers = () => axiosInstance.get('/admin/users');
+export const axiosAdminEditUser = (userData) => axiosInstance.put('admin/users', userData);
 // Admin/News(已修正 待整理)
 
 // Admin/Culinary

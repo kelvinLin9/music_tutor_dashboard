@@ -8,8 +8,11 @@ import {
   axiosLoginUser,
   axiosCheckUser,
   axiosEditUser,
+  axiosGetUser,
   // axiosVerifyEmail,
   // axiosGenerateEmailCode,
+  axiosAdminGetUsers,
+  axiosAdminEditUser,
 } from '@/api/userApi';
 
 export const useUserStore = defineStore('userStore', () => {
@@ -25,7 +28,6 @@ export const useUserStore = defineStore('userStore', () => {
   });
   const userInfo = ref({});
   const showLogInPage = ref(true);
-
   const loginLoading = ref(false);
   const login = async () => {
     console.log('login', loginData.value)
@@ -61,7 +63,6 @@ export const useUserStore = defineStore('userStore', () => {
     confirmPassword: '',
   });
   const signupLoading = ref(false);
-
   const signup = async () => {
     console.log('signup', signupData.value)
     signupLoading.value = true;
@@ -84,9 +85,6 @@ export const useUserStore = defineStore('userStore', () => {
       signupLoading.value = false;
     }
   };
-
-
-
   const resetSignupForm = () => {
     signupData.value.name = '';
     signupData.value.email = '';
@@ -95,42 +93,47 @@ export const useUserStore = defineStore('userStore', () => {
   }
 
   // check
-  const isChecked = ref(false);
+  const role = ref('');
   const checkUser = async () => {
-    console.log(123)
     try {
       const res = await axiosCheckUser();
       console.log(res);
-      isChecked.value = res.data.status;
-      console.log('checkUser 驗證成功', isChecked.value);
+      role.value = res.data.role;
+      console.log('checkUser 驗證成功', role.value);
+      getUser();
     } catch (error) {
-      isChecked.value = false;
-      console.log('checkUser 驗證失敗', isChecked.value, error);
+      role.value = false;
+      console.log('checkUser 驗證失敗', role.value, error);
     }
   }
 
   // logout
   const logout = () => {
     document.cookie = `music_tutor=`;
-    isChecked.value = false;
+    role.value = '';
     Toast.fire({
       icon: 'success',
       title: '已登出'
     })
     router.push('/')
   }
+  // get user
+  const getUser = async () => {
+    try {
+      const res = await axiosGetUser();
+      console.log(res)
+      userInfo.value = res.data.result;
+    } catch (error) {
+      console.log('get user 失敗', error)
+    }
+  }
 
-
-  // CRUD
+  // Admin CRUD
   const users = ref([])
   const getUsers = async () => {
     signupLoading.value = true;
     try {
-      const res = await axios.get('https://music-tutor-backend.onrender.com/admin/users', {
-        headers: {
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjIzYzlhOWE5OTIxODIyOGNkMjYyMjAiLCJpYXQiOjE3MTczMDUyMzYsImV4cCI6MTcxNzkxMDAzNn0.OE6XQN5B1Nvk9X2L3QIpyGBiStPmcayBk8zyJG8umnQ`
-          }  // 確保替換 `token` 為實際的 token 變數
-      });
+      const res = await axiosAdminGetUsers()
       users.value = res.data.users;
       console.log(users.value);
     } catch (error) {
@@ -142,8 +145,13 @@ export const useUserStore = defineStore('userStore', () => {
   const editUser = async (data) => {
     loginLoading.value = true;
     console.log(data)
+    const updateDate = {
+      _id: data._id,
+      name: data.name,
+      email: data.email,
+    }
     try {
-      const res = await axiosEditUser(data);
+      const res = await axiosAdminEditUser(updateDate);
       console.log(res)
       Toast.fire({
         icon: 'success',
@@ -257,11 +265,14 @@ export const useUserStore = defineStore('userStore', () => {
     signup,
 
     // check
-    isChecked,
+    role,
     checkUser,
 
     // logout
     logout,
+
+    // get user
+    getUser,
 
     // CRUD
     users,

@@ -47,13 +47,13 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#editUserModal" 
                                         @click="userInfo = item"
-                                        :disabled="item.role === 'user'"
+                                        :disabled="role !== 'superuser' && item.role !== 'admin'"
                                       >
                                         <i class="bi bi-pen text-white"></i>
                                       </button>
                                     </td>
                                     <td>
-                                      <button class="btn btn-primary" :disabled="item.role === 'user'">
+                                      <button class="btn btn-primary" :disabled="role !== 'superuser' && item.role !== 'admin'">
                                         <i class="bi bi-trash text-white"></i>
                                       </button>
                                     </td>
@@ -67,7 +67,6 @@
                     </div>
                 </div>
                 <!-- Button trigger modal -->
-
   <UserEdit :userInfo="userInfo" @update:user-info="updateUser"/>
 </template>
 
@@ -78,7 +77,7 @@ import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user.js'
 
 const userStore = useUserStore()
-const { users } = storeToRefs(userStore)
+const { users, role } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 const editUser = userStore.editUser
 const checkUser = userStore.checkUser
@@ -86,7 +85,6 @@ const checkUser = userStore.checkUser
 const userInfo = ref({})
 onMounted(() => {
   getUsers()
-  checkUser()
 })
 // emits
 const updateUser = (data) => {
