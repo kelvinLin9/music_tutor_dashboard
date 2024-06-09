@@ -13,7 +13,6 @@
                                     <th scope="col">Update</th>
                                     <th scope="col">Courses</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Publish</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">Delete</th>
                                     <th></th>
@@ -40,23 +39,23 @@
                                       {{ item.courses }}
                                     </td>
                                     <td>
-                                      {{ item.userRole }}
+                                      {{ item.role }}
                                     </td>
                                     <td>
-                                      <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal" @click="userInfo = item">
+                                      <button 
+                                        class="btn btn-primary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editUserModal" 
+                                        @click="userInfo = item"
+                                        :disabled="item.role === 'user'"
+                                      >
                                         <i class="bi bi-pen text-white"></i>
-                                      </div>
+                                      </button>
                                     </td>
                                     <td>
-                                      <div class="btn btn-primary">
+                                      <button class="btn btn-primary" :disabled="item.role === 'user'">
                                         <i class="bi bi-trash text-white"></i>
-                                      </div>
+                                      </button>
                                     </td>
                                 </tr>
 
@@ -76,14 +75,22 @@
 import UserEdit from '@/components/common/UserEdit.vue'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia"
-import { useUserStore } from '@/stores/user123.js'
+import { useUserStore } from '@/stores/user.js'
 
 const userStore = useUserStore()
 const { users } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
+const editUser = userStore.editUser
+const checkUser = userStore.checkUser
 
 const userInfo = ref({})
 onMounted(() => {
-    getUsers()
+  getUsers()
+  checkUser()
 })
+// emits
+const updateUser = (data) => {
+  console.log(data)
+  editUser(data)
+}
 </script>

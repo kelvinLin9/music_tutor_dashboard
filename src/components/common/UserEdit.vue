@@ -9,7 +9,7 @@
         <div class="modal-body">
           <VForm class="mx-auto"
                   v-slot="{ errors }"
-                  @submit="UpdateFirebaseMemberData()">
+                  @submit="saveUserInfo()">
             <div class="mb-3 w-50">
               <label for="displayName" class="form-label ">
                 姓名：
@@ -117,7 +117,7 @@
               <button type="button" class="btn btn-secondary me-3 mt-3" data-bs-dismiss="modal">
                 取消
               </button>
-              <button type="submit" class="btn btn-primary mt-3" data-bs-dismiss="modal" @click="saveUserInfo()">
+              <button type="submit" class="btn btn-primary mt-3" data-bs-dismiss="modal">
                 確認
               </button>
             </div>
@@ -130,7 +130,7 @@
               <label for="message-text" class="col-form-label">Message:</label>
               <textarea class="form-control" id="message-text"></textarea>
             </div> -->
-          {{ userInfo }}
+          {{ props.userInfo }}
   
   
           </VForm>
@@ -143,18 +143,16 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, defineProps, defineEmits, onMounted } from 'vue'
 const props = defineProps({
   userInfo: {
     type: Object,
   }
 })
 
-const localUserInfo = ref({...props.userInfo});
-
 const emit = defineEmits(['update:userInfo']);
 
 function saveUserInfo() {
-  emit('update:userInfo', localUserInfo.value);
+  emit('update:userInfo', props.userInfo);
 }
 </script>

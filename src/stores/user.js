@@ -24,6 +24,7 @@ export const useUserStore = defineStore('userStore', () => {
     password: '',
   });
   const userInfo = ref({});
+  const UserTemp = ref({});
   const showLogInPage = ref(true);
 
   const loginLoading = ref(false);
@@ -99,6 +100,7 @@ export const useUserStore = defineStore('userStore', () => {
   const checkUser = async () => {
     try {
       const res = await axiosCheckUser();
+      console.log(res);
       isChecked.value = res.data.status;
       console.log('checkUser 驗證成功', isChecked.value);
     } catch (error) {
@@ -118,10 +120,44 @@ export const useUserStore = defineStore('userStore', () => {
     router.push('/')
   }
 
-  // edit
-  const editUser = async () => {
-    //
-    
+
+  // CRUD
+  const users = ref([])
+  const getUsers = async () => {
+    signupLoading.value = true;
+    try {
+      const res = await axios.get('https://music-tutor-backend.onrender.com/admin/users', {
+        headers: {
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjIzYzlhOWE5OTIxODIyOGNkMjYyMjAiLCJpYXQiOjE3MTczMDUyMzYsImV4cCI6MTcxNzkxMDAzNn0.OE6XQN5B1Nvk9X2L3QIpyGBiStPmcayBk8zyJG8umnQ`
+          }  // 確保替換 `token` 為實際的 token 變數
+      });
+      users.value = res.data.users;
+      console.log(users.value);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      signupLoading.value = false
+    }
+  }
+  const editUser = async (data) => {
+    loginLoading.value = true;
+    console.log(data)
+    try {
+      const res = await axiosEditUser(data);
+      console.log(res)
+      Toast.fire({
+        icon: 'success',
+        title: '編輯成功'
+      });
+    } catch (error) {
+      console.log('編輯失敗', error);
+      Alert.fire({
+        icon: 'error',
+        title: '編輯失敗，請檢查您的資料'
+      });
+    } finally {
+      loginLoading.value = false;
+    }
   }
 
 
@@ -227,6 +263,11 @@ export const useUserStore = defineStore('userStore', () => {
     // logout
     logout,
 
+    // CRUD
+    users,
+    getUsers,
+    editUser,
+    
     // forgot
     verifyEmail,
     generateEmailCode,
