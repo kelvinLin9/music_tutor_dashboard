@@ -24,7 +24,6 @@ export const useUserStore = defineStore('userStore', () => {
     password: '',
   });
   const userInfo = ref({});
-  const UserTemp = ref({});
   const showLogInPage = ref(true);
 
   const loginLoading = ref(false);
@@ -98,6 +97,7 @@ export const useUserStore = defineStore('userStore', () => {
   // check
   const isChecked = ref(false);
   const checkUser = async () => {
+    console.log(123)
     try {
       const res = await axiosCheckUser();
       console.log(res);
@@ -105,7 +105,7 @@ export const useUserStore = defineStore('userStore', () => {
       console.log('checkUser 驗證成功', isChecked.value);
     } catch (error) {
       isChecked.value = false;
-      console.log('checkUser 驗證失敗', isChecked.value);
+      console.log('checkUser 驗證失敗', isChecked.value, error);
     }
   }
 
