@@ -11,8 +11,8 @@
                       <th scope="col">Email</th>
                       <th scope="col">Created</th>
                       <th scope="col">Update</th>
-                      <th scope="col">Courses</th>
                       <th scope="col">Role</th>
+                      <th scope="col">Courses</th>
                       <th scope="col">Edit</th>
                       <th scope="col">Delete</th>
                       <th></th>
@@ -36,10 +36,12 @@
                         {{ item.updatedAt.split('T')[0] }}
                       </td>
                       <td>
-                        {{ item.courses }}
+                        {{ item.role }}
                       </td>
                       <td>
-                        {{ item.role }}
+                        <button class="btn btn-primary" :disabled="role !== 'superuser' && item.role !== 'admin'">
+                          <i class="bi bi-book text-white"></i>
+                        </button>
                       </td>
                       <td>
                         <button 
