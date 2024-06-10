@@ -4,9 +4,10 @@ import axios from 'axios';
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_URL}`,
-  headers: {
-    'Content-Type': 'application/json', 
-  },
+  // headers: {
+  //   // 'Content-Type': 'application/json', 
+  //   // 'Content-Type': 'multipart/form-data',
+  // },
 });
 
 // console.log(axiosInstance.interceptors) 
@@ -38,10 +39,8 @@ export const axiosLoginUser = (loginData) => axiosInstance.post('/users/login', 
 export const axiosSignupUser = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
 export const axiosCheckUser = () => axiosInstance.get('/users/check');
-export const axiosGetUser = (userId) => {
-  return axios.get(`/users/${userId}`, {
-  });
-};
+export const axiosGetUser = () => axiosInstance.get(`/users/profile`);
+export const axiosUploadFile = () => axiosInstance.post('/upload/file');
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
 // Verify

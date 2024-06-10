@@ -202,16 +202,14 @@
                                     </div>
                                     <div>
                                         <span class="d-block text-sm font-semibold">
-                                            {{ userInfo }}
+                                            {{ userInfo.name }}
                                         </span>
                                         <span class="d-block text-xs text-muted font-regular">
-                                            Paris, FR
+                                            {{ userInfo.email }}
                                         </span>
                                     </div>
                             </div>
                         </div>
-
-
 
                         <!-- Actions -->
                         <!-- <div class="col-sm-6 col-12 text-sm-end">
@@ -265,9 +263,9 @@ const userStore = useUserStore()
 const { role, userInfo } = storeToRefs(userStore)
 const checkUser = userStore.checkUser
 const logout = userStore.logout
+const getUser = userStore.getUser
 
-onMounted(() => {
+onMounted( async() => {
   checkUser()
-  
 })
 </script>

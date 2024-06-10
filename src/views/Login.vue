@@ -217,9 +217,9 @@ const checkUser = userStore.checkUser
 const verifyEmail = userStore.verifyEmail
 const resetPasswordEmail = userStore.resetPasswordEmail
 
-onMounted(() => {
-  checkUser()
-})
+// onMounted(() => {
+//   checkUser()
+// })
 </script>
 
 <!-- <script>

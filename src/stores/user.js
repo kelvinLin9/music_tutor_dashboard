@@ -100,7 +100,7 @@ export const useUserStore = defineStore('userStore', () => {
       console.log(res);
       role.value = res.data.role;
       console.log('checkUser 驗證成功', role.value);
-      getUser();
+      getUser(res.data.userId);
     } catch (error) {
       role.value = false;
       console.log('checkUser 驗證失敗', role.value, error);
@@ -149,7 +149,18 @@ export const useUserStore = defineStore('userStore', () => {
       _id: data._id,
       name: data.name,
       email: data.email,
+      role: data.role,
+      phone: data.phone,
+      address: data.address,
+      birthday: data.birthday,
+      gender: data.gender,
+      photo: data.photo,
+      intro: data.intro,         
+      facebook: data.facebook,   
+      instagram: data.instagram, 
+      discord: data.discord
     }
+    console.log(updateDate)
     try {
       const res = await axiosAdminEditUser(updateDate);
       console.log(res)
@@ -272,6 +283,7 @@ export const useUserStore = defineStore('userStore', () => {
     logout,
 
     // get user
+    userInfo,
     getUser,
 
     // CRUD
