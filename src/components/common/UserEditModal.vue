@@ -12,6 +12,7 @@
                   @submit="saveUserInfo()">
 
             <div class="">
+              <img :src="userInfo.photo" alt="photo" class="photo">
               <div>
                 <input type="file" @change="handleFileChange" />
                 <!-- <button @click="uploadFile">Upload File</button> -->
@@ -51,8 +52,6 @@
                 <ErrorMessage class="invalid-feedback" name="手機"/>
               </div>
             </div>
-
-            {{ userInfo }}..
             <div class="d-flex">
               <div class="mb-3 me-3">
                 <label for="birthday" class="form-label ">
@@ -205,3 +204,11 @@ function handleFileChange(event) {
   emit('update:photo', event.target.files[0]);
 }
 </script>
+
+<style scoped>
+.photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+</style>

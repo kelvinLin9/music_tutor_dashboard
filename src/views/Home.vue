@@ -197,7 +197,7 @@
                             <div class="d-flex align-items-center ">
                                     <div class="ms-auto me-3">
                                         <div class="position-relative d-inline-block text-white">
-                                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar rounded-circle">
+                                            <img alt="Image Placeholder" :src="userInfo.photo" class="avatar rounded-circle">
                                         </div>
                                     </div>
                                     <div>
@@ -210,7 +210,6 @@
                                     </div>
                             </div>
                         </div>
-
                         <!-- Actions -->
                         <!-- <div class="col-sm-6 col-12 text-sm-end">
                             <div class="mx-n1">
