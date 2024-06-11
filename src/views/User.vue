@@ -69,12 +69,10 @@
     </div>
     <!-- Button trigger modal -->
     <UserEditModal 
-      v-if="userTemp"
       :userTemp="userTemp" 
       @update:user-info="updateUser"
       @update:photo="updatePhoto"
     />
-  {{ userTemp }}
 </template>
 
 <script setup>
@@ -84,10 +82,10 @@ import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user.js'
 import { useUploadStore } from '@/stores/upload.js'
 
-const userTemp = ref({})
+
 
 const userStore = useUserStore()
-const { users, userInfo } = storeToRefs(userStore)
+const { users, userInfo, userTemp } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 const editUser = userStore.editUser
 

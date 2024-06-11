@@ -190,6 +190,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   // Admin CRUD
   const users = ref([])
+  const userTemp = ref({})
   const getUsers = handleErrorAsync(
     async () => {
       userLoading.value = true;
@@ -253,6 +254,7 @@ export const useUserStore = defineStore('userStore', () => {
 
     // CRUD
     users,
+    userTemp,
     getUsers,
     editUser,
     
