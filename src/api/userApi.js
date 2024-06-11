@@ -35,8 +35,8 @@ axiosInstance.interceptors.response.use((response) => {
 
 // Api 整理在這裡
 // User
-export const axiosLoginUser = (loginData) => axiosInstance.post('/users/login', loginData);
-export const axiosSignupUser = (signupData) => axiosInstance.post('/users/signup', signupData);
+export const axiosLogin= (loginData) => axiosInstance.post('/users/login', loginData);
+export const axiosSignup = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
 export const axiosCheckUser = () => axiosInstance.get('/users/check');
 export const axiosGetUser = () => axiosInstance.get(`/users/profile`);

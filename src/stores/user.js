@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { Toast, Alert, Swal } from '@/mixins/swal';
 import axios from 'axios';
 import { 
-  axiosSignupUser,
+  axiosSignup,
   axiosLoginUser,
   axiosCheckUser,
   axiosEditUser,
@@ -67,7 +67,7 @@ export const useUserStore = defineStore('userStore', () => {
     console.log('signup', signupData.value)
     signupLoading.value = true;
     try {
-      const res = await axiosSignupUser(signupData.value);
+      const res = await axiosSignup(signupData.value);
       console.log(res)
       Toast.fire({
         icon: 'success',
