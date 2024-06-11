@@ -2,11 +2,11 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 import { Toast, Alert, Swal } from '@/mixins/swal';
-import axios from 'axios';
+import { handleErrorAsync } from '@/mixins/utils';
 import { 
   axiosSignup,
-  axiosLoginUser,
-  axiosCheckUser,
+  axiosLogin,
+  axiosCheck,
   axiosEditUser,
   axiosGetUser,
   // axiosVerifyEmail,
@@ -16,10 +16,9 @@ import {
 } from '@/api/userApi';
 
 export const useUserStore = defineStore('userStore', () => {
-
-
   const router = useRouter();
-
+  
+  const userLoading = ref(false)
 
   // login
   const loginData = ref({
@@ -29,14 +28,13 @@ export const useUserStore = defineStore('userStore', () => {
   const userInfo = ref({});
   const showLogInPage = ref(true);
   const loginLoading = ref(false);
-  const login = async () => {
-    console.log('login', loginData.value)
-    loginLoading.value = true;
-    try {
-      const res = await axiosLoginUser(loginData.value);
-      console.log(res)
+  const login = handleErrorAsync(
+    async() => {
+      loginLoading.value = true;
+      const res = await axiosLogin(loginData.value);
+      console.log(res.data.user)
       document.cookie = `music_tutor=${res.data.token}`;
-      userInfo.value = res.data.result;
+      userInfo.value = res.data.user;
       loginData.value = { email: '', password: '' };
       console.log(userInfo.value)
       Toast.fire({
@@ -44,16 +42,8 @@ export const useUserStore = defineStore('userStore', () => {
         title: '登入成功'
       });
       router.push('/');
-    } catch (error) {
-      console.log('登入失敗', error);
-      Alert.fire({
-        icon: 'error',
-        title: '登入失敗，請檢查您的帳號密碼'
-      });
-    } finally {
-      loginLoading.value = false;
-    }
-  };
+    }, () => loginLoading.value = false)
+  
 
   // signup
   const signupData = ref({
@@ -63,10 +53,9 @@ export const useUserStore = defineStore('userStore', () => {
     confirmPassword: '',
   });
   const signupLoading = ref(false);
-  const signup = async () => {
-    console.log('signup', signupData.value)
-    signupLoading.value = true;
-    try {
+  const signup = handleErrorAsync(
+    async () => {
+      signupLoading.value = true;
       const res = await axiosSignup(signupData.value);
       console.log(res)
       Toast.fire({
@@ -74,17 +63,9 @@ export const useUserStore = defineStore('userStore', () => {
         title: '註冊成功，請登入'
       });
       resetSignupForm();
-      // router.push('/login');
-    } catch (error) {
-      console.log('註冊失敗', error);
-      Alert.fire({
-        icon: 'error',
-        title: '註冊失敗，請檢查您的資料'
-      });
-    } finally { 
-      signupLoading.value = false;
-    }
-  };
+      showLogInPage.value = true;
+    }, () => signupLoading.value = false)
+  
   const resetSignupForm = () => {
     signupData.value.name = '';
     signupData.value.email = '';
@@ -93,19 +74,14 @@ export const useUserStore = defineStore('userStore', () => {
   }
 
   // check
-  const role = ref('');
-  const checkUser = async () => {
-    try {
-      const res = await axiosCheckUser();
-      console.log(res);
-      role.value = res.data.role;
-      console.log('checkUser 驗證成功', role.value);
-      getUser(res.data.userId);
-    } catch (error) {
-      role.value = false;
-      console.log('checkUser 驗證失敗', role.value, error);
+  const checkUser = handleErrorAsync(
+    async () => {
+      const res = await axiosCheck();
+      userInfo.value = res.data.user;
+      console.log('checkUser 驗證成功');
     }
-  }
+  )
+  
 
   // logout
   const logout = () => {
@@ -127,59 +103,6 @@ export const useUserStore = defineStore('userStore', () => {
       console.log('get user 失敗', error)
     }
   }
-
-  // Admin CRUD
-  const users = ref([])
-  const getUsers = async () => {
-    signupLoading.value = true;
-    try {
-      const res = await axiosAdminGetUsers()
-      users.value = res.data.users;
-      console.log(users.value);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      signupLoading.value = false
-    }
-  }
-  const editUser = async (data) => {
-    loginLoading.value = true;
-    console.log(data)
-    const updateDate = {
-      _id: data._id,
-      name: data.name,
-      email: data.email,
-      role: data.role,
-      phone: data.phone,
-      address: data.address,
-      birthday: data.birthday,
-      gender: data.gender,
-      photo: data.photo,
-      intro: data.intro,         
-      facebook: data.facebook,   
-      instagram: data.instagram, 
-      discord: data.discord
-    }
-    console.log(updateDate)
-    try {
-      const res = await axiosAdminEditUser(updateDate);
-      console.log(res)
-      Toast.fire({
-        icon: 'success',
-        title: '編輯成功'
-      });
-    } catch (error) {
-      console.log('編輯失敗', error);
-      Alert.fire({
-        icon: 'error',
-        title: '編輯失敗，請檢查您的資料'
-      });
-    } finally {
-      loginLoading.value = false;
-    }
-  }
-
-
 
   // forgot
   const verifyEmail = async () => {
@@ -259,10 +182,53 @@ export const useUserStore = defineStore('userStore', () => {
     //
   }
   }
-
   const resetPasswordEmail =  () =>{
     //
   }
+
+
+
+  // Admin CRUD
+  const users = ref([])
+  const getUsers = handleErrorAsync(
+    async () => {
+      userLoading.value = true;
+      const res = await axiosAdminGetUsers()
+      users.value = res.data.users;
+      console.log('getUsers', users.value);
+    }, () => userLoading.value = false)
+  
+  
+  const editUser = handleErrorAsync(
+    async (data) => {
+      userLoading.value = true;
+      const updateDate = {
+        _id: data._id,
+        name: data.name,
+        email: data.email,
+        role: data.role,
+        phone: data.phone,
+        address: data.address,
+        birthday: data.birthday,
+        gender: data.gender,
+        photo: data.photo,
+        intro: data.intro,         
+        facebook: data.facebook,   
+        instagram: data.instagram, 
+        discord: data.discord
+      }
+      console.log(updateDate)
+      const res = await axiosAdminEditUser(updateDate);
+      console.log('editUser', res.data);
+      Toast.fire({
+        icon: 'success',
+        title: '編輯成功'
+      });
+    }, () => userLoading.value = false)
+  
+
+
+
   return {
     // login
     loginLoading,
@@ -276,7 +242,6 @@ export const useUserStore = defineStore('userStore', () => {
     signup,
 
     // check
-    role,
     checkUser,
 
     // logout

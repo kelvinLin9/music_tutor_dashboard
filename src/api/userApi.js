@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use((response) => {
 export const axiosLogin= (loginData) => axiosInstance.post('/users/login', loginData);
 export const axiosSignup = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
-export const axiosCheckUser = () => axiosInstance.get('/users/check');
+export const axiosCheck = () => axiosInstance.get('/users/check');
 export const axiosGetUser = () => axiosInstance.get(`/users/profile`);
 export const axiosUploadFile = () => axiosInstance.post('/upload/file');
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
@@ -47,7 +47,7 @@ export const axiosEditUser = (userData) => axiosInstance.put('/users', userData)
 // export const axiosVerifyEmail = (email) => axiosInstance.post('/verify/email', { email });
 // export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
 
-// News(已修正 待整理)
+// Courses
 
 // Culinary
 

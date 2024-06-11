@@ -268,3 +268,11 @@ onMounted( async() => {
   checkUser()
 })
 </script>
+
+<style scoped>
+.logo {
+  width: 80px;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
