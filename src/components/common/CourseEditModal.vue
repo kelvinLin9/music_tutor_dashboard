@@ -9,7 +9,7 @@
         <div class="modal-body">
           <VForm class="mx-auto"
                   v-slot="{ errors }"
-                  @submit="UpdateFirebaseUserCourseData(courseTemp.id)">
+                  @submit="saveCourseInfo()">
             <div class="row mb-3">
               <div class="col-auto">
                 <label for="courseName" class="col-form-label">
@@ -38,6 +38,16 @@
                 </label>
               </div>
             <div class="col-4">
+              <VField
+              name="課程費用"
+              id="coursePrice"
+              type="number"
+              rules="required|min_value:100|max_value:100000"
+              class="form-control"
+              :class="{ 'is-invalid': errors['課程費用'] }"
+              placeholder="請輸入課程費用"
+              v-model="courseTemp.price"
+              />
               <ErrorMessage class="invalid-feedback" name="課程費用"/>
             </div>
             </div>
@@ -299,8 +309,6 @@
             </button>
           </VForm>
         </div>
-        <div class="modal-footer">
-        </div>
       </div>
     </div>
   </div>
@@ -317,6 +325,7 @@ const props = defineProps({
 const emit = defineEmits(['update:courseTemp', 'update:photo']);
 
 function saveCourseInfo() {
+  console.log(1231)
   emit('update:courseTemp', props.courseTemp);
 }
 

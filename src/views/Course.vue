@@ -70,7 +70,7 @@
     <!-- Button trigger modal -->
     <CourseEditModal
       :courseTemp="courseTemp"
-      @update:course-info="updateCourse"
+      @update:courseTemp="updateCourse"
     />
     {{ courses }}
 </template>
@@ -91,6 +91,7 @@ const { users, userInfo, userTemp } = storeToRefs(userStore)
 const courseStore = useCourseStore()
 const { course, courses, courseTemp } = storeToRefs(courseStore)
 const getCourses = courseStore.getCourses
+const EditCourse = courseStore.EditCourse
 
 
 onMounted(() => {
@@ -103,9 +104,9 @@ const uploadFile = uploadStore.uploadFile
 
 
 // emits
-const updateUser = (data) => {
+const updateCourse = (data) => {
   console.log(data)
-  editUser(data)
+  EditCourse(data)
 }
 
 const updatePhoto = (data) => {
