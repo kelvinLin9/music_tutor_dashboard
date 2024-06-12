@@ -47,7 +47,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/user">
+                        <router-link class="nav-link" to="/course">
                             <i class="bi bi-book"></i> Courses
                         </router-link>
                     </li>

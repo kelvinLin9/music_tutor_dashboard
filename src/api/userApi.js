@@ -48,6 +48,12 @@ export const axiosEditUser = (userData) => axiosInstance.put('/users', userData)
 // export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
 
 // Courses
+export const axiosGetCourses = () => axiosInstance.get('/courses');
+export const axiosGetCourse = (id) => axiosInstance.get(`/courses/${id}`);
+export const axiosEditCourse = (courseData) => axiosInstance.put('/courses', courseData);
+export const axiosAddCourse = (courseData) => axiosInstance.post('/courses', courseData);
+export const axiosDeleteCourse = (id) => axiosInstance.delete(`/courses/${id}`);
+
 
 // Culinary
 
