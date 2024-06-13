@@ -1,9 +1,9 @@
 <template>
-  <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">編輯課程資料</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">新增課程資料</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -12,12 +12,33 @@
                   @submit="saveCourseInfo()">
             <div class="row mb-3">
               <div class="col-auto">
+                <label for="teacherId" class="col-form-label">
+                  老師ID：
+                </label>
+              </div>
+              <div class="col-4">
+                <VField
+                  name="老師ID"
+                  id="teacherId"
+                  type="text"
+                  rules="required"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors['老師ID'] }"
+                  placeholder="老師ID"
+                  v-model="courseTemp._id"
+                />
+                <ErrorMessage class="invalid-feedback" name="老師ID"/>
+              </div>
+            </div>                 
+
+
+            <div class="row mb-3">
+              <div class="col-auto">
                 <label for="courseName" class="col-form-label">
                   課程名稱：
                 </label>
               </div>
               <div class="col-4">
-                {{ courseTemp }}
             <VField
               name="課程名稱"
               id="courseName"
