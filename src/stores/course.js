@@ -35,6 +35,14 @@ export const useCourseStore = defineStore('courseStore', () => {
     console.log('EditCourse', course.value)
   }, () => courseLoading.value = false)  
 
+  const AddCourse = handleErrorAsync(async() => {
+    courseLoading.value = true
+    const res = await axiosAddCourse(courseTemp.value)
+    console.log(res)
+  }, () => courseLoading.value = false)
+
+
+
   return {
     courseLoading,
     courses,
@@ -42,5 +50,6 @@ export const useCourseStore = defineStore('courseStore', () => {
     courseTemp,
     getCourses,
     EditCourse,
+    AddCourse,
   }
 })

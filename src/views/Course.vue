@@ -1,4 +1,14 @@
 <template>
+  <div class="d-flex justify-content-end">
+    <button 
+      class="btn btn-primary text-white mb-2"
+      data-bs-toggle="modal" 
+      data-bs-target="#editCourseModal" 
+      @click="courseTemp = {}"
+    >
+      新增課程
+    </button>
+  </div>
   <div class="card shadow border-0 mb-7">
       <!-- <div class="card-header">
           <h5 class="mb-0">Applications</h5>
@@ -72,6 +82,10 @@
       :courseTemp="courseTemp"
       @update:courseTemp="updateCourse"
     />
+    <CourseEditModal
+      :courseTemp="courseTemp"
+      @add:courseTemp="addCourse"
+    />
     {{ courses }}
 </template>
 
@@ -92,6 +106,7 @@ const courseStore = useCourseStore()
 const { course, courses, courseTemp } = storeToRefs(courseStore)
 const getCourses = courseStore.getCourses
 const EditCourse = courseStore.EditCourse
+const AddCourse =  courseStore.AddCourse
 
 
 onMounted(() => {
@@ -108,7 +123,10 @@ const updateCourse = (data) => {
   console.log(data)
   EditCourse(data)
 }
-
+const addCourse = (data) => {
+  console.log(data)
+  AddCourse(data)
+}
 const updatePhoto = (data) => {
   console.log(data)
   uploadFile(data)
