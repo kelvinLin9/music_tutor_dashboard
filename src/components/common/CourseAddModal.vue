@@ -25,7 +25,7 @@
                   class="form-control"
                   :class="{ 'is-invalid': errors['老師ID'] }"
                   placeholder="老師ID"
-                  v-model="courseTemp._id"
+                  v-model="courseTemp.instructor"
                 />
                 <ErrorMessage class="invalid-feedback" name="老師ID"/>
               </div>
@@ -185,12 +185,12 @@
                   class="form-control"
                   :class="{ 'is-invalid': errors['授課時間'] }"
                   placeholder="請輸入授課時間(分鐘)"
-                  v-model="courseTemp.minute"
+                  v-model="courseTemp.minutes"
                 />
                 <ErrorMessage class="invalid-feedback" name="授課時間"/>
               </div>
             </div>
-            <!-- <div class="row mb-3">
+            <div class="row mb-3">
               <div class="col-auto">
                 上課方式：
               </div>
@@ -201,7 +201,7 @@
                         id="studentHome" 
                         value="在學生家" 
                         name="courseMethod1" 
-                        v-model="courseTemp.courseMethod"> 
+                        v-model="courseTemp.mode"> 
                   <label for="studentHome">在學生家</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -210,7 +210,7 @@
                         id="teacherHome" 
                         value="在老師家" 
                         name="courseMethod2" 
-                        v-model="courseTemp.courseMethod">
+                        v-model="courseTemp.mode">
                   <label for="teacherHome">在老師家</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -219,27 +219,27 @@
                         id="online" 
                         value="線上" 
                         name="courseMethod3" 
-                        v-model="courseTemp.courseMethod">
+                        v-model="courseTemp.mode">
                   <label for="online">線上</label>
                 </div>
               </div>
-            </div> -->
-            <!-- <div class="row mb-3">
+            </div>
+            <div class="row mb-3">
               <div class="col-auto">
                 <label for="cityName" class="col-form-label"
-                :class="{'d-none' : courseTemp.courseMethod.length == 1 && courseTemp.courseMethod[0] == '線上'}">
+                :class="{'d-none' : courseTemp.courseMethod?.length == 1 && courseTemp.courseMethod[0] == '線上'}">
                   上課地點：
                 </label>
               </div>
               <div class="col-6"
-              :class="{'d-none' :courseTemp.courseMethod.length == 1 && courseTemp.courseMethod[0] == '線上'}">
+              :class="{'d-none' :courseTemp.courseMethod?.length == 1 && courseTemp.courseMethod[0] == '線上'}">
                 <VField name="上課地點" 
                         as="select" 
                         class="form-select" 
                         aria-label="Default select example"
                         id="cityName"
                         :class="{ 'is-invalid': errors['上課地點'] }"
-                        v-model="courseTemp.cityName">
+                        v-model="courseTemp.place">
                   <option value="" selected>請選擇上課地點</option>
                   <option value="台北市">台北市</option>
                   <option value="基隆市">基隆市</option>
@@ -266,7 +266,7 @@
                 </VField>
                 <ErrorMessage class="invalid-feedback" name="上課地點"/>
               </div>
-            </div> -->
+            </div>
             <div class="row mb-3">
               <div class="col-12 col-lg-8">
                 <label for="courseIntro" class="form-label">
@@ -281,7 +281,7 @@
                   rules="required|max:500"
                   :class="{ 'is-invalid': errors['課程介紹'] }"
                   placeholder="限定500字元內"
-                  v-model="courseTemp.courseIntro"
+                  v-model="courseTemp.intro"
                   >
                 </VField>
                 <ErrorMessage class="invalid-feedback" name="課程介紹"/>
@@ -306,7 +306,7 @@
                     rules="required"
                     v-model="courseTemp.img"
                     :class="{ 'is-invalid': errors['課程封面'] }"
-                    @change="uploadPhoto('course',$event)"
+                    @change="handleFileChange"
                   >
                 </VField>
                 <ErrorMessage class="invalid-feedback" name="課程封面"/>
@@ -343,7 +343,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['add:courseTemp', 'update:photo']);
+const emit = defineEmits(['add:courseTemp', 'update:coursePhoto']);
 
 function saveCourseInfo() {
   console.log(1231)
@@ -351,7 +351,7 @@ function saveCourseInfo() {
 }
 
 function handleFileChange(event) {
-  emit('update:photo', event.target.files[0]);
+  emit('update:coursePhoto', event.target.files[0]);
 }
 
 </script>
