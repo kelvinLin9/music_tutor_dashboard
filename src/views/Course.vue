@@ -37,7 +37,7 @@
                           </a>
                       </td>
                       <td>
-                        <!-- {{ item.email }} -->
+                        {{ item.instructor?.name }}
                       </td>
                       <td>
                         {{ item.createdAt.split('T')[0] }}
