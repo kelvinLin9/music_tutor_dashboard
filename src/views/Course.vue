@@ -3,8 +3,8 @@
     <button 
       class="btn btn-primary text-white mb-2"
       data-bs-toggle="modal" 
-      data-bs-target="#editCourseModal" 
-      @click="courseTemp = {}"
+      data-bs-target="#addCourseModal" 
+      @click="courseTemp = { mode: [] }"
     >
       新增課程
     </button>
@@ -82,15 +82,17 @@
       :courseTemp="courseTemp"
       @update:courseTemp="updateCourse"
     />
-    <CourseEditModal
+    <CourseAddModal
       :courseTemp="courseTemp"
       @add:courseTemp="addCourse"
+      @update:coursePhoto="updatePhoto"
     />
     {{ courses }}
 </template>
 
 <script setup>
 import CourseEditModal from '@/components/common/CourseEditModal.vue'
+import CourseAddModal from '@/components/common/CourseAddModal.vue'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia"
 import { useCourseStore } from '@/stores/course.js'
@@ -127,9 +129,10 @@ const addCourse = (data) => {
   console.log(data)
   AddCourse(data)
 }
-const updatePhoto = (data) => {
+const updatePhoto = async(data) => {
   console.log(data)
-  uploadFile(data)
+  console.log(uploadFile(data))
+  courseTemp.value.img = await uploadFile(data)
 }
 
 </script>

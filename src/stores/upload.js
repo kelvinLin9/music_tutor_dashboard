@@ -23,6 +23,7 @@ export const useUploadStore = defineStore('uploadStore', () => {
       fileUrl.value = res.data.fileUrl[0];
       userStore.userInfo.photo = res.data.fileUrl[0]
       console.log('Upload response:', res.data.fileUrl);
+      return res.data.fileUrl[0]
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
