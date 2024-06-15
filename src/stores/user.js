@@ -21,22 +21,16 @@ export const useUserStore = defineStore('userStore', () => {
   const userLoading = ref(false)
 
   // login
-  const loginData = ref({
-    email: '',
-    password: '',
-  });
   const userInfo = ref({});
   const showLogInPage = ref(true);
   const loginLoading = ref(false);
   const login = handleErrorAsync(
-    async() => {
+    async(data) => {
       loginLoading.value = true;
-      const res = await axiosLogin(loginData.value);
-      console.log(res.data.user)
+      const res = await axiosLogin(data);
       document.cookie = `music_tutor=${res.data.token}`;
       userInfo.value = res.data.user;
-      loginData.value = { email: '', password: '' };
-      console.log(userInfo.value)
+      console.log('login', userInfo.value)
       Toast.fire({
         icon: 'success',
         title: '登入成功'
@@ -233,7 +227,6 @@ export const useUserStore = defineStore('userStore', () => {
   return {
     // login
     loginLoading,
-    loginData,
     showLogInPage,
     login,
 

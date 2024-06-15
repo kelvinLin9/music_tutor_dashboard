@@ -16,12 +16,12 @@
                 <!-- Dropdown -->
                 <div class="dropdown">
                     <!-- Toggle -->
-                    <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-parent-child">
                             <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
                             <span class="avatar-child avatar-badge bg-success"></span>
                         </div>
-                    </a>
+                    </a> -->
                     <!-- Menu -->
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
                         <a href="#" class="dropdown-item">Profile</a>
@@ -197,7 +197,7 @@
                             <div class="d-flex align-items-center ">
                                     <div class="ms-auto me-3">
                                         <div class="position-relative d-inline-block text-white">
-                                            <img alt="Image Placeholder" :src="userInfo.photo" class="avatar rounded-circle">
+                                            <img alt="Image Placeholder" :src="userInfo.photo || 'https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'" class="avatar rounded-circle">
                                         </div>
                                     </div>
                                     <div>

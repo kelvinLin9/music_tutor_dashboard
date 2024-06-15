@@ -28,7 +28,7 @@
           
           <VForm class="mx-auto w-75"
                 v-slot="{ errors }"
-                @submit="login()">
+                @submit="submitLogin()">
             <div class="mb-3">
               <label for="email" class="form-label ">
                 Email：
@@ -41,7 +41,7 @@
                 class="form-control fs-7"
                 :class="{ 'is-invalid': errors['email'] }"
                 placeholder="請輸入 Email"
-                v-model="loginData.email"
+                v-model="email"
               />
               <ErrorMessage class="invalid-feedback" name="email"/>
             </div>
@@ -93,7 +93,7 @@
                 class="form-control fs-7"
                 :class="{ 'is-invalid': errors['密碼'] }"
                 placeholder="請輸入密碼"
-                v-model="loginData.password"
+                v-model="password"
               />
               <ErrorMessage class="invalid-feedback" name="密碼"/>
             </div>
@@ -200,7 +200,7 @@
 
 <script setup>
 import ButtonLoading from "@/components/widgets/ButtonLoading.vue";
-import { watch, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore()
@@ -217,6 +217,12 @@ const checkUser = userStore.checkUser
 const verifyEmail = userStore.verifyEmail
 const resetPasswordEmail = userStore.resetPasswordEmail
 
+const email = ref('');
+const password = ref('');
+
+const submitLogin = () => {
+  login({ email: email.value, password: password.value });
+};
 // onMounted(() => {
 //   checkUser()
 // })
