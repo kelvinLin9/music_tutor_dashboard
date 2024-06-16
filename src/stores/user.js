@@ -204,6 +204,10 @@ export const useUserStore = defineStore('userStore', () => {
       console.log(updateDate)
       const res = await axiosAdminEditUser(updateDate);
       console.log('editUser', res.data);
+      if(res.data.status) {
+        getUsers()
+        getUser()
+      }
       Toast.fire({
         icon: 'success',
         title: '編輯成功'

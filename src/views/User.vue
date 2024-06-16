@@ -70,7 +70,7 @@
     <!-- Button trigger modal -->
     <UserEditModal 
       :userTemp="userTemp" 
-      @update:user-info="updateUser"
+      @update:userTemp="updateUser"
       @update:photo="updatePhoto"
     />
 </template>
@@ -105,9 +105,9 @@ const updateUser = (data) => {
   editUser(data)
 }
 
-const updatePhoto = (data) => {
+const updatePhoto = async(data) => {
   console.log(data)
-  userTemp.value.photo = uploadFile(data)
+  userTemp.value.photo = await uploadFile(data)
 }
 
 </script>
