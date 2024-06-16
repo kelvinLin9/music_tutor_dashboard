@@ -41,7 +41,7 @@
                 class="form-control fs-7"
                 :class="{ 'is-invalid': errors['email'] }"
                 placeholder="請輸入 Email"
-                v-model="email"
+                v-model="loginData.email"
               />
               <ErrorMessage class="invalid-feedback" name="email"/>
             </div>
@@ -93,7 +93,7 @@
                 class="form-control fs-7"
                 :class="{ 'is-invalid': errors['密碼'] }"
                 placeholder="請輸入密碼"
-                v-model="password"
+                v-model="loginData.password"
               />
               <ErrorMessage class="invalid-feedback" name="密碼"/>
             </div>
@@ -114,7 +114,7 @@
           <h1 class="mx-auto border-bottom my-3 pb-2 w-75 text-center">會員註冊</h1>
           <VForm class="mx-auto w-75"
           v-slot="{ errors }"
-          @submit="signup()">
+          @submit="submitSignup()">
             <div class="mb-3">
               <label for="displayName" class="form-label ">
                 姓名：
@@ -208,8 +208,6 @@ const {
   showLogInPage,
   signupLoading, 
   loginLoading,
-  loginData,
-  signupData,
   isChecked } = storeToRefs(userStore)
 const signup = userStore.signup
 const login = userStore.login
@@ -217,15 +215,34 @@ const checkUser = userStore.checkUser
 const verifyEmail = userStore.verifyEmail
 const resetPasswordEmail = userStore.resetPasswordEmail
 
-const email = ref('');
-const password = ref('');
+const loginData = ref({
+  email: '',
+  password: ''
+});
 
 const submitLogin = () => {
-  login({ email: email.value, password: password.value });
+  login(loginData.value);
+  loginData.value = {
+    email: '',
+    password: ''
+  };
 };
-// onMounted(() => {
-//   checkUser()
-// })
+
+const signupData = ref({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+});
+const submitSignup = () => {
+  signup(signupData.value);
+  signupData.value = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  };
+};
 </script>
 
 <!-- <script>

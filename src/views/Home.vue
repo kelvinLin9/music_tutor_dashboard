@@ -166,12 +166,12 @@
                             <i class="bi bi-person-square"></i> Account
                         </a>
                     </li> -->
-                    <li class="nav-item" v-if="!role">
+                    <li class="nav-item" v-if="!userInfo.role">
                         <router-link class="nav-link" to="/login">
                             <i class="bi bi-door-open"></i> Login
                         </router-link>
                     </li>
-                    <li class="nav-item" v-if="role">
+                    <li class="nav-item" v-if="userInfo.role">
                       <div class="nav-link cursor-pointer" @click="logout()">
                         <i class="bi bi-box-arrow-left"></i> Logout
                       </div>
@@ -194,7 +194,7 @@
                         </div>
 
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-                            <div class="d-flex align-items-center ">
+                            <div class="d-flex align-items-center" v-if="userInfo.role">
                                     <div class="ms-auto me-3">
                                         <div class="position-relative d-inline-block text-white">
                                             <img alt="Image Placeholder" :src="userInfo.photo || 'https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'" class="avatar rounded-circle">
@@ -250,7 +250,7 @@
           </div>
         </main>
       </div>
-</div>
+  </div>
 </template>
 
 <script setup>
@@ -259,7 +259,7 @@ import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user.js'
 
 const userStore = useUserStore()
-const { role, userInfo } = storeToRefs(userStore)
+const { userInfo } = storeToRefs(userStore)
 const checkUser = userStore.checkUser
 const logout = userStore.logout
 const getUser = userStore.getUser

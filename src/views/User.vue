@@ -107,7 +107,7 @@ const updateUser = (data) => {
 
 const updatePhoto = (data) => {
   console.log(data)
-  uploadFile(data)
+  userTemp.value.photo = uploadFile(data)
 }
 
 </script>

@@ -8,7 +8,6 @@ import { useUserStore } from '@/stores/user.js'
 export const useUploadStore = defineStore('uploadStore', () => {
   const userStore = useUserStore()
 
-  const fileUrl = ref('')
   const uploadFile = async(file) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -19,9 +18,6 @@ export const useUploadStore = defineStore('uploadStore', () => {
           'Authorization': 'Bearer ' + document.cookie.replace(/(?:(?:^|.*;\s*)music_tutor\s*=\s*([^;]*).*$)|^.*$/, '$1'),
         },
       });
-      // const res = await axiosUploadFile(formData);
-      fileUrl.value = res.data.fileUrl[0];
-      userStore.userInfo.photo = res.data.fileUrl[0]
       console.log('Upload response:', res.data.fileUrl);
       return res.data.fileUrl[0]
     } catch (error) {
@@ -31,7 +27,6 @@ export const useUploadStore = defineStore('uploadStore', () => {
   }
 
   return {
-    fileUrl,
     uploadFile,
   }
 })

@@ -87,7 +87,7 @@
       @add:courseTemp="addCourse"
       @update:coursePhoto="updatePhoto"
     />
-    {{ courses }}
+    <!-- {{ courses }} -->
 </template>
 
 <script setup>

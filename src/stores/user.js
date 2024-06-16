@@ -40,32 +40,20 @@ export const useUserStore = defineStore('userStore', () => {
   
 
   // signup
-  const signupData = ref({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
   const signupLoading = ref(false);
   const signup = handleErrorAsync(
-    async () => {
+    async (data) => {
       signupLoading.value = true;
-      const res = await axiosSignup(signupData.value);
-      console.log(res)
+      const res = await axiosSignup(data);
+      console.log(res);
       Toast.fire({
         icon: 'success',
         title: '註冊成功，請登入'
       });
-      resetSignupForm();
       showLogInPage.value = true;
-    }, () => signupLoading.value = false)
-  
-  const resetSignupForm = () => {
-    signupData.value.name = '';
-    signupData.value.email = '';
-    signupData.value.password = '';
-    signupData.value.confirmPassword = '';
-  }
+    }, 
+    () => signupLoading.value = false
+  );
 
   // check
   const checkUser = handleErrorAsync(
@@ -80,13 +68,14 @@ export const useUserStore = defineStore('userStore', () => {
   // logout
   const logout = () => {
     document.cookie = `music_tutor=`;
-    role.value = '';
+    userInfo.value = {}
     Toast.fire({
       icon: 'success',
       title: '已登出'
     })
-    router.push('/')
+    router.push('/login')
   }
+
   // get user
   const getUser = async () => {
     try {
@@ -232,7 +221,6 @@ export const useUserStore = defineStore('userStore', () => {
 
     // signup
     signupLoading,
-    signupData,
     signup,
 
     // check
