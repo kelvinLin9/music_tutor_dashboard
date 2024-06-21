@@ -54,13 +54,16 @@ export const axiosEditCourse = (courseData) => axiosInstance.put(`/courses/${cou
 export const axiosAddCourse = (courseData) => axiosInstance.post('/courses', courseData);
 export const axiosDeleteCourse = (id) => axiosInstance.delete(`/courses/${id}`);
 
+// Orders
+export const axiosGetOrders = () => axiosInstance.get('/orders');
+export const axiosGetOrder = (id) => axiosInstance.get(`/orders/${id}`);
+export const axiosAddOrder = (orderData) => axiosInstance.post('/orders', orderData);
+export const axiosEditOrder = (orderData) => axiosInstance.put(`/orders/${orderData._id}`, orderData);
+export const axiosDeleteOrder = (id) => axiosInstance.delete(`/orders/${id}`);
 
-// Culinary
+// 
 
-// Rooms(已修正 待整理)
-// export const axiosGetRooms = () => axiosInstance.get('/room')
 
-// Orders(已修正 待整理)
 
 // Admin/User
 export const axiosAdminGetUsers = () => axiosInstance.get('/admin/users');

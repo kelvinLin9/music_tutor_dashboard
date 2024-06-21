@@ -80,7 +80,7 @@
     <!-- Button trigger modal -->
     <CourseEditModal
       :courseTemp="courseTemp"
-      @update:courseTemp="updateCourse"
+      @update:courseTemp="editCourse"
     />
     <CourseAddModal
       :courseTemp="courseTemp"
@@ -101,14 +101,14 @@ import { useUserStore } from '@/stores/user.js'
 
 
 const userStore = useUserStore()
-const { users, userInfo, userTemp } = storeToRefs(userStore)
+const { userInfo } = storeToRefs(userStore)
 
 
 const courseStore = useCourseStore()
 const { course, courses, courseTemp } = storeToRefs(courseStore)
 const getCourses = courseStore.getCourses
-const EditCourse = courseStore.EditCourse
-const AddCourse =  courseStore.AddCourse
+const editCourse = courseStore.editCourse
+const addCourse =  courseStore.addCourse
 
 
 onMounted(() => {
@@ -119,16 +119,6 @@ const uploadStore = useUploadStore()
 const uploadFile = uploadStore.uploadFile
 
 
-
-// emits
-const updateCourse = (data) => {
-  console.log(data)
-  EditCourse(data)
-}
-const addCourse = (data) => {
-  console.log(data)
-  AddCourse(data)
-}
 const updatePhoto = async(data) => {
   console.log(data)
   console.log(uploadFile(data))

@@ -17,7 +17,6 @@
                 </label>
               </div>
               <div class="col-4">
-                {{ courseTemp }}
             <VField
               name="課程名稱"
               id="courseName"
@@ -164,7 +163,7 @@
                   class="form-control"
                   :class="{ 'is-invalid': errors['授課時間'] }"
                   placeholder="請輸入授課時間(分鐘)"
-                  v-model="courseTemp.minute"
+                  v-model="courseTemp.minutes"
                 />
                 <ErrorMessage class="invalid-feedback" name="授課時間"/>
               </div>
@@ -260,7 +259,7 @@
                   rules="required|max:500"
                   :class="{ 'is-invalid': errors['課程介紹'] }"
                   placeholder="限定500字元內"
-                  v-model="courseTemp.courseIntro"
+                  v-model="courseTemp.intro"
                   >
                 </VField>
                 <ErrorMessage class="invalid-feedback" name="課程介紹"/>

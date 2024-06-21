@@ -1,7 +1,6 @@
 // stores/fileStore.js
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import { handleErrorAsync } from '@/mixins/utils';
 import { useUserStore } from '@/stores/user.js'
 import { 
@@ -28,14 +27,14 @@ export const useCourseStore = defineStore('courseStore', () => {
     }, () => courseLoading.value = false)
 
     
-  const EditCourse = handleErrorAsync(async() => {
+  const editCourse = handleErrorAsync(async() => {
     courseLoading.value = true;
     const res = await axiosEditCourse(courseTemp.value);
     course.value = res.data;
-    console.log('EditCourse', course.value)
+    console.log('editCourse', course.value)
   }, () => courseLoading.value = false)  
 
-  const AddCourse = handleErrorAsync(async() => {
+  const addCourse = handleErrorAsync(async() => {
     courseLoading.value = true
     const res = await axiosAddCourse(courseTemp.value)
     console.log(res)
@@ -49,7 +48,7 @@ export const useCourseStore = defineStore('courseStore', () => {
     course,
     courseTemp,
     getCourses,
-    EditCourse,
-    AddCourse,
+    editCourse,
+    addCourse,
   }
 })
