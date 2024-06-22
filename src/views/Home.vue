@@ -57,7 +57,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/user">
+                        <router-link class="nav-link" to="/coupon">
                             <i class="bi bi-ticket"></i> Coupons
                         </router-link>
                     </li>

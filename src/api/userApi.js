@@ -61,7 +61,12 @@ export const axiosAddOrder = (orderData) => axiosInstance.post('/orders', orderD
 export const axiosEditOrder = (orderData) => axiosInstance.put(`/orders/${orderData._id}`, orderData);
 export const axiosDeleteOrder = (id) => axiosInstance.delete(`/orders/${id}`);
 
-// 
+// Coupons
+export const axiosGetCoupons = () => axiosInstance.get('/coupons');
+export const axiosGetCoupon = (id) => axiosInstance.get(`/coupons/${id}`);
+export const axiosAddCoupon = (couponData) => axiosInstance.post('/coupons', couponData);
+export const axiosEditCoupon = (couponData) => axiosInstance.put(`/coupons/${couponData._id}`, couponData);
+export const axiosDeleteCoupon = (id) => axiosInstance.delete(`/coupons/${id}`);
 
 
 
