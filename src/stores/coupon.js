@@ -16,7 +16,7 @@ export const useCouponStore = defineStore('couponStore', () => {
     async() => {
       couponLoading.value = true;
       const res = await axiosGetCoupons();
-      console.log(res);
+      // console.log(res);
       coupons.value = res.data.data;
       console.log('getCoupons', coupons.value)
     }, () => couponLoading.value = false)

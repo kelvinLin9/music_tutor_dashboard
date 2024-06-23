@@ -4,53 +4,41 @@
       <table class="table table-hover table-nowrap">
         <thead class="thead-light">
           <tr>
-            <th scope="col">Purchase Time</th>
-            <th scope="col">Coupon Number</th>
-            <th scope="col">Email</th>
             <th scope="col">Name</th>
-            <th scope="col">Item Purchased</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Payment Status</th>
-            <th scope="col">Payment Method</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Coupon Code</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Expiry Date</th>
+            <th scope="col">Enabled</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in coupons" :key="item">
               <td>
-                {{ item.createdAt.split('T')[0] }}
+                {{ item.name }}
               </td>
               <td>
-                {{ item._id }}
+                {{ item.code }}
               </td>
               <td>
-                {{ item.user.email }}
+                {{ item.percentage }}%
               </td>
               <td>
-                {{ item.user.name }}
+                {{ item.expiryDate.split('T')[0] }}
+              </td>
+              <td>
+                {{ item.isActive }}
               </td>
               <td>
                 <button 
-                  class="btn btn-primary" 
+                  class="btn btn-primary me-2" 
                   data-bs-toggle="modal" 
                   data-bs-target="#couponDetailModal"
                   :disabled="userInfo.role !== 'superuser' && userInfo.role !== 'admin'"
                   @click="couponTemp = item.items"
                 >
-                  <i class="bi bi-book text-white"></i>
+                  <i class="bi bi-pen text-white"></i>
                 </button>
-                <!-- {{ item.items }} -->
-              </td>
-              <td>
-                {{ item.totalAmount }}
-              </td>
-              <td>
-                {{ item.paymentStatus }}
-              </td>
-              <td>
-                {{ item.paymentMethod }}
-              </td>                  
-              <td>
                 <button 
                   class="btn btn-primary" 
                   :disabled="userInfo.role !== 'superuser' && userInfo.role !== 'admin'"
@@ -64,14 +52,13 @@
         </table>
       </div>
       <tfoot class="card-footer bcoupon-0">
-        <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/>
+        <!-- <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/> -->
       </tfoot>
       </div>
     <!-- <CouponDetailModal
       :couponTemp="couponTemp"
     /> -->
 </template>
-
 <script setup>
 // import CouponDetailModal from '@/components/common/CouponDetailModal.vue'
 import Pagination from '@/components/widgets/Pagination.vue'
