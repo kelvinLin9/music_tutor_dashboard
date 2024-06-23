@@ -48,21 +48,21 @@ export const axiosEditUser = (userData) => axiosInstance.put('/users', userData)
 // export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
 
 // Courses
-export const axiosGetCourses = () => axiosInstance.get('/courses');
+export const axiosGetCourses = (params) => axiosInstance.get('/courses', {params: params});
 export const axiosGetCourse = (id) => axiosInstance.get(`/courses/${id}`);
 export const axiosEditCourse = (courseData) => axiosInstance.put(`/courses/${courseData._id}`, courseData);
 export const axiosAddCourse = (courseData) => axiosInstance.post('/courses', courseData);
 export const axiosDeleteCourse = (id) => axiosInstance.delete(`/courses/${id}`);
 
 // Orders
-export const axiosGetOrders = () => axiosInstance.get('/orders');
+export const axiosGetOrders = (params) => axiosInstance.get('/orders',{params: params});
 export const axiosGetOrder = (id) => axiosInstance.get(`/orders/${id}`);
 export const axiosAddOrder = (orderData) => axiosInstance.post('/orders', orderData);
 export const axiosEditOrder = (orderData) => axiosInstance.put(`/orders/${orderData._id}`, orderData);
 export const axiosDeleteOrder = (id) => axiosInstance.delete(`/orders/${id}`);
 
 // Coupons
-export const axiosGetCoupons = () => axiosInstance.get('/coupons');
+export const axiosGetCoupons = (params) => axiosInstance.get('/coupons', {params: params});
 export const axiosGetCoupon = (id) => axiosInstance.get(`/coupons/${id}`);
 export const axiosAddCoupon = (couponData) => axiosInstance.post('/coupons', couponData);
 export const axiosEditCoupon = (couponData) => axiosInstance.put(`/coupons/${couponData._id}`, couponData);

@@ -8,11 +8,10 @@
             <th scope="col">Order Number</th>
             <th scope="col">Email</th>
             <th scope="col">Name</th>
-            <th scope="col">Item Purchased</th>
             <th scope="col">Amount</th>
             <th scope="col">Payment Status</th>
             <th scope="col">Payment Method</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -30,18 +29,6 @@
                 {{ item.user.name }}
               </td>
               <td>
-                <button 
-                  class="btn btn-primary" 
-                  data-bs-toggle="modal" 
-                  data-bs-target="#orderDetailModal"
-                  :disabled="userInfo.role !== 'superuser' && userInfo.role !== 'admin'"
-                  @click="orderTemp = item.items"
-                >
-                  <i class="bi bi-book text-white"></i>
-                </button>
-                <!-- {{ item.items }} -->
-              </td>
-              <td>
                 {{ item.totalAmount }}
               </td>
               <td>
@@ -51,6 +38,15 @@
                 {{ item.paymentMethod }}
               </td>                  
               <td>
+                <button 
+                  class="btn btn-primary me-2" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#orderDetailModal"
+                  :disabled="userInfo.role !== 'superuser' && userInfo.role !== 'admin'"
+                  @click="orderTemp = item.items"
+                >
+                  <i class="bi bi-book text-white"></i>
+                </button>
                 <button 
                   class="btn btn-primary" 
                   :disabled="userInfo.role !== 'superuser' && userInfo.role !== 'admin'"
@@ -63,9 +59,13 @@
           </tbody>
         </table>
       </div>
-      <tfoot class="card-footer border-0">
-        <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/>
-      </tfoot>
+      <div class="card-footer bcoupon-0 d-flex justify-content-center">
+      <Pagination 
+        :totalPages="totalPages" 
+        :initialPage="page" 
+        @page-changed="updatePage"
+      />
+    </div>
       </div>
     <OrderDetailModal
       :orderTemp="orderTemp"
@@ -75,6 +75,7 @@
 <script setup>
 import OrderDetailModal from '@/components/common/OrderDetailModal.vue'
 import Pagination from '@/components/widgets/Pagination.vue'
+import Loading from '@/components/widgets/Loading.vue'
 import { onMounted } from 'vue'
 import { storeToRefs } from "pinia"
 import { useOrderStore } from '@/stores/order.js'

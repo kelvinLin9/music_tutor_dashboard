@@ -69,6 +69,7 @@ export const useCouponStore = defineStore('couponStore', () => {
     coupons,
     coupon,
     couponTemp,
+    
     getCoupons,
     getCoupon,
     editCoupon,

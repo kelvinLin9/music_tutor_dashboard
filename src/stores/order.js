@@ -26,6 +26,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     async(id) => {
       orderLoading.value = true;
       const res = await axiosGetOrder(id);
+      console.log(res);
       order.value = res.data;
       console.log('getOrder', order.value)
     }, () => orderLoading.value = false)
