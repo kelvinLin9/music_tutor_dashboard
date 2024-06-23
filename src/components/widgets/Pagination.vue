@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   totalPages: Number,
@@ -49,10 +49,11 @@ const paginationRange = computed(() => {
   return range;
 });
 
+const emit = defineEmits(['page-changed']);
+
 const changePage = (page) => {
   if (page !== '...') {
     currentPage.value = page;
-    // Emit an event to parent component
     emit('page-changed', page);
   }
 };

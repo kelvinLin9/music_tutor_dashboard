@@ -71,8 +71,11 @@ export const axiosDeleteCoupon = (id) => axiosInstance.delete(`/coupons/${id}`);
 
 
 // Admin/User
-export const axiosAdminGetUsers = () => axiosInstance.get('/admin/users');
+export const axiosAdminGetUsers = (params) => axiosInstance.get('/admin/users',{
+  params: params,
+});
 export const axiosAdminEditUser = (userData) => axiosInstance.put('admin/users', userData);
+export const axiosAdminDeleteUser = (id) => axiosInstance.delete(`/admin/users/${id}`);
 // Admin/News(已修正 待整理)
 
 // Admin/Culinary

@@ -49,7 +49,11 @@
                         >
                           <i class="bi bi-pen text-white"></i>
                         </button>
-                        <button class="btn btn-primary" :disabled="userInfo.role !== 'superuser' && item.role !== 'admin'">
+                        <button 
+                          class="btn btn-primary" 
+                          :disabled="userInfo.role !== 'superuser' && item.role !== 'admin'"
+                          @click="deleteUser(item._id)"
+                        >
                           <i class="bi bi-trash text-white"></i>
                         </button>
                       </td>
@@ -58,7 +62,11 @@
             </table>
     </div>
     <tfoot class="card-footer bcoupon-0 d-flex justify-content-center">
-        <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/>
+      <Pagination 
+        :totalPages="totalPages" 
+        :initialPage="page" 
+        @page-changed="updatePage"
+      />
     </tfoot>
     </div>
     <!-- Button trigger modal -->
@@ -81,9 +89,19 @@ import { useUploadStore } from '@/stores/upload.js'
 
 
 const userStore = useUserStore()
-const { users, userInfo, userTemp, userLoading } = storeToRefs(userStore)
+const { 
+  users,
+  userInfo,
+  userTemp,
+  userLoading,
+  page,
+  limit,
+  totalPages,
+  sortBy, 
+} = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 const editUser = userStore.editUser
+const deleteUser = userStore.deleteUser
 
 
 onMounted(() => {
@@ -100,10 +118,13 @@ const updateUser = (data) => {
   console.log(data)
   editUser(data)
 }
-
 const updatePhoto = async(data) => {
   console.log(data)
   userTemp.value.photo = await uploadFile(data)
+}
+const updatePage = (page) => {
+  console.log(page)
+  userStore.getUsers({page: page})
 }
 
 </script>

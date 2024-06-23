@@ -13,13 +13,12 @@ import {
   // axiosGenerateEmailCode,
   axiosAdminGetUsers,
   axiosAdminEditUser,
+  axiosAdminDeleteUser,
 } from '@/api/userApi';
 
 export const useUserStore = defineStore('userStore', () => {
   const router = useRouter();
   
-  const userLoading = ref(false)
-
   // login
   const userInfo = ref({});
   const showLogInPage = ref(true);
@@ -96,6 +95,8 @@ export const useUserStore = defineStore('userStore', () => {
   }
 
   // get user
+  const userLoading = ref(false)
+
   const getUser = async () => {
     try {
       const res = await axiosGetUser();
@@ -193,14 +194,23 @@ export const useUserStore = defineStore('userStore', () => {
   // Admin CRUD
   const users = ref([])
   const userTemp = ref({})
+  const page = ref(1)
+  const limit = ref(10)
+  const totalPages = ref(1)
+  const sortBy = ref('createdAt')
+
   const getUsers = handleErrorAsync(
-    async () => {
+    async (params) => {
       userLoading.value = true;
-      const res = await axiosAdminGetUsers()
+      const res = await axiosAdminGetUsers(params)
+      console.log(res.data)
       users.value = res.data.users;
+      page.value = res.data.page;
+      limit.value = res.data.limit;
+      totalPages.value = res.data.totalPages;
+      sortBy.value = res.data.sortBy;
       console.log('getUsers', users.value);
     }, () => userLoading.value = false)
-  
   
   const editUser = handleErrorAsync(
     async (data) => {
@@ -233,7 +243,31 @@ export const useUserStore = defineStore('userStore', () => {
       });
     }, () => userLoading.value = false)
   
-
+  const deleteUser = async (id) => {
+    Swal.fire({
+      title: '確定要刪除這個用戶嗎？',
+      text: "你將無法撤銷此操作！",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '是的，刪除它！',
+      cancelButtonText: '取消'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        userLoading.value = true;
+        axiosAdminDeleteUser(id).then(res => {
+          Swal.fire(
+            '已刪除！',
+            '用戶已被刪除。',
+            'success'
+          );
+          console.log(res);
+          getUsers()
+        })
+      }
+    })
+  }
 
 
   return {
@@ -256,12 +290,17 @@ export const useUserStore = defineStore('userStore', () => {
     userInfo,
     getUser,
 
-    // CRUD
+    // admin
     users,
     userTemp,
     userLoading,
+    page,
+    limit,
+    totalPages,
+    sortBy,
     getUsers,
     editUser,
+    deleteUser,
     
     // forgot
     verifyEmail,
