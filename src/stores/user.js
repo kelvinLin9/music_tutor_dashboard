@@ -36,6 +36,7 @@ export const useUserStore = defineStore('userStore', () => {
         title: '登入成功'
       });
       router.push('/');
+      return true
     }, () => loginLoading.value = false)
   
 
@@ -56,14 +57,32 @@ export const useUserStore = defineStore('userStore', () => {
   );
 
   // check
-  const checkUser = handleErrorAsync(
-    async () => {
-      const res = await axiosCheck();
-      userInfo.value = res.data.user;
-      console.log('checkUser 驗證成功');
+  const checkUser = async () => {
+      try {
+        const res = await axiosCheck();
+        console.log(res)
+        userInfo.value = res.data.user;
+        if(!userInfo.value) {
+          router.push('/login')
+        }
+        console.log('checkUser 驗證成功');
+      } catch (error) {   
+        console.log('checkUser 驗證失敗', error)
+        router.push('/login')
+      }
+      // console.log('checkUser 驗證成功');
     }
-  )
-  
+    // const checkUser = handleErrorAsync(
+    //   async () => {
+    //     const res = await axiosCheck();
+    //     console.log(res)
+    //     userInfo.value = res.data.user;
+    //     if(!userInfo.value) {
+    //       router.push('/login')
+    //     }
+    //     // console.log('checkUser 驗證成功');
+    //   }
+    // )
 
   // logout
   const logout = () => {
@@ -240,6 +259,7 @@ export const useUserStore = defineStore('userStore', () => {
     // CRUD
     users,
     userTemp,
+    userLoading,
     getUsers,
     editUser,
     

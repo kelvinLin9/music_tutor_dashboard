@@ -1,9 +1,9 @@
 <template>
-  <div class="card shadow border-0 mb-7">
-      <!-- <div class="card-header">
-          <h5 class="mb-0">Applications</h5>
-      </div> -->
-      <div class="table-responsive">
+  <Loading v-if="userLoading" class="position-absolute"/> 
+  <div 
+    v-if="!userLoading"
+    class="card shadow border-0 mb-7">
+    <div class="table-responsive">
           <table class="table table-hover table-nowrap">
               <thead class="thead-light">
                   <tr>
@@ -12,9 +12,7 @@
                       <th scope="col">Created</th>
                       <th scope="col">Update</th>
                       <th scope="col">Role</th>
-                      <th scope="col">Courses</th>
-                      <th scope="col">Edit</th>
-                      <th scope="col">Delete</th>
+                      <th scope="col">Actions</th>
                       <th></th>
                   </tr>
               </thead>
@@ -39,13 +37,11 @@
                         {{ item.role }}
                       </td>
                       <td>
-                        <button class="btn btn-primary" :disabled="userInfo.role !== 'superuser' && item.role !== 'admin'">
+                        <button class="btn btn-primary me-2" :disabled="userInfo.role !== 'superuser' && item.role !== 'admin'">
                           <i class="bi bi-book text-white"></i>
                         </button>
-                      </td>
-                      <td>
                         <button 
-                          class="btn btn-primary" 
+                          class="btn btn-primary me-2" 
                           data-bs-toggle="modal" 
                           data-bs-target="#editUserModal" 
                           @click="userTemp = item"
@@ -53,8 +49,6 @@
                         >
                           <i class="bi bi-pen text-white"></i>
                         </button>
-                      </td>
-                      <td>
                         <button class="btn btn-primary" :disabled="userInfo.role !== 'superuser' && item.role !== 'admin'">
                           <i class="bi bi-trash text-white"></i>
                         </button>
@@ -62,10 +56,10 @@
                   </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="card-footer border-0 py-5">
-            <!-- <span class="text-muted text-sm">Showing 10 items out of 250 results found</span> -->
-        </div>
+    </div>
+    <tfoot class="card-footer bcoupon-0 d-flex justify-content-center">
+        <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/>
+    </tfoot>
     </div>
     <!-- Button trigger modal -->
     <UserEditModal 
@@ -77,6 +71,8 @@
 
 <script setup>
 import UserEditModal from '@/components/common/UserEditModal.vue'
+import Pagination from '@/components/widgets/Pagination.vue'
+import Loading from '@/components/widgets/Loading.vue'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia"
 import { useUserStore } from '@/stores/user.js'
@@ -85,7 +81,7 @@ import { useUploadStore } from '@/stores/upload.js'
 
 
 const userStore = useUserStore()
-const { users, userInfo, userTemp } = storeToRefs(userStore)
+const { users, userInfo, userTemp, userLoading } = storeToRefs(userStore)
 const getUsers = userStore.getUsers
 const editUser = userStore.editUser
 

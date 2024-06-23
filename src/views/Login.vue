@@ -220,12 +220,15 @@ const loginData = ref({
   password: ''
 });
 
-const submitLogin = () => {
-  login(loginData.value);
-  loginData.value = {
-    email: '',
-    password: ''
-  };
+const submitLogin = async() => {
+  const res = await login(loginData.value);
+  console.log(res);
+  if (res) {
+    loginData.value = {
+      email: '',
+      password: ''
+    };
+  }
 };
 
 const signupData = ref({

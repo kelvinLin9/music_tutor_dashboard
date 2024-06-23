@@ -1,6 +1,8 @@
 <template>
-  <div class="card shadow bcoupon-0 mb-7">
-    <div class="table-responsive">
+  <Loading v-if="couponLoading" class="position-absolute"/>          
+  <div v-if="!couponLoading" 
+    class="card shadow bcoupon-0 mb-7 card-wrap">
+    <div class="table-responsive" >
       <table class="table table-hover table-nowrap">
         <thead class="thead-light">
           <tr>
@@ -50,11 +52,11 @@
             </tr>
           </tbody>
         </table>
-      </div>
+    </div>
       <tfoot class="card-footer bcoupon-0">
         <!-- <Pagination :totalPages="100" :initialPage="1" @page-changed="handlePageChange"/> -->
       </tfoot>
-      </div>
+  </div>
     <!-- <CouponDetailModal
       :couponTemp="couponTemp"
     /> -->
@@ -62,6 +64,7 @@
 <script setup>
 // import CouponDetailModal from '@/components/common/CouponDetailModal.vue'
 import Pagination from '@/components/widgets/Pagination.vue'
+import Loading from '@/components/widgets/Loading.vue'
 import { onMounted } from 'vue'
 import { storeToRefs } from "pinia"
 import { useCouponStore } from '@/stores/coupon.js'
@@ -73,7 +76,7 @@ const { userInfo } = storeToRefs(userStore)
 
 
 const couponStore = useCouponStore()
-const { coupons, couponTemp } = storeToRefs(couponStore)
+const { coupons, couponTemp, couponLoading } = storeToRefs(couponStore)
 const getCoupons = couponStore.getCoupons
 const deleteCoupon = couponStore.deleteCoupon
 
@@ -82,3 +85,9 @@ onMounted(() => {
 })
 
 </script>
+
+<style scoped lang="scss">
+.card-wrap {
+  position: relative;
+}
+</style>

@@ -59,8 +59,8 @@ const changePage = (page) => {
 </script>
 
 <style scoped lang="scss">
-// .page-item.active .page-link {
-//   background-color: #4CAF50;
-//   color: white;
-// }
+.page-item.active .page-link {
+  background-color: #ff715f;
+  color: white;
+}
 </style>
