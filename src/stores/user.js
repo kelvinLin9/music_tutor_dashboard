@@ -6,6 +6,7 @@ import { handleErrorAsync } from '@/mixins/utils';
 import { 
   axiosSignup,
   axiosLogin,
+  axiosGoogleLogin,
   axiosCheck,
   axiosEditUser,
   axiosGetUser,
@@ -36,6 +37,24 @@ export const useUserStore = defineStore('userStore', () => {
       });
       router.push('/');
       return true
+    }, () => loginLoading.value = false)
+
+  const googleLogin = handleErrorAsync(
+    async(token) => {
+      console.log('googleLogin', token)
+      loginLoading.value = true
+      const res = await axiosGoogleLogin(token);
+      console.log(res)
+      if(res.data.status === true) {
+        document.cookie = `music_tutor=${res.data.token}`;
+        userInfo.value = res.data.user;
+        console.log('googleLogin', userInfo.value)
+        Toast.fire({
+          icon: 'success',
+          title: '登入成功'
+        });
+        router.push('/');
+      }
     }, () => loginLoading.value = false)
   
 
@@ -275,6 +294,7 @@ export const useUserStore = defineStore('userStore', () => {
     loginLoading,
     showLogInPage,
     login,
+    googleLogin,
 
     // signup
     signupLoading,

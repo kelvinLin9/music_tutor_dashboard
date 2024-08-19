@@ -19,10 +19,10 @@
             type="button" 
             class="btn btn-outline-dark d-block mx-auto py-16 d-flex justify-content-center w-75"
             @click="signInWithGoogle()"
-            disabled
+            :disabled="loginLoading"
           >
             <img src="../assets/images/google-icon.png" alt="google icon" class="google-icon me-2">
-            <span class="google-login-text">使用 Google 登入</span>
+            <span class="google-login-text">使用 Google 登入</span><ButtonLoading color="#000000" v-if="loginLoading"/>
           </button>
           <hr class="mx-auto w-75 mt-16 text-center fs-7 login-hr">
           
@@ -246,21 +246,16 @@ const submitSignup = () => {
     confirmPassword: ''
   };
 };
-</script>
 
-<!-- <script>
-import { mapState, mapActions, mapWritableState } from 
-'pinia' 
-import logInStore from '../stores/logIn';
-export default {
-  computed: {
-    ...mapWritableState(logInStore, ['resetPasswordEmail'])
-  },
-  methods: {  
-    ...mapActions(logInStore, ['signInWithGoogle','updateProfile', 'signOut', 'sendPasswordResetEmail']),
-  },
+const signInWithGoogle = () => {
+  loginLoading.value = true;
+  // console.log(`${import.meta.env.VITE_URL}/users/google`)
+  const backendUrl = import.meta.env.VITE_URL;
+  window.location.href = `${backendUrl}/users/google`;
+  // loginLoading.value = false;
 }
-</script> -->
+
+</script>
 
 <style lang="scss" scoped>
   .login-wrap {

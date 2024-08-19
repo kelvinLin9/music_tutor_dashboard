@@ -43,6 +43,9 @@ export const axiosGetUser = () => axiosInstance.get(`/users/profile`);
 export const axiosUploadFile = () => axiosInstance.post('/upload/file');
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
+// google
+export const axiosGoogleLogin = (googleToken) => axiosInstance.post('/users/googleClient/callback', googleToken);
+
 // Verify
 // export const axiosVerifyEmail = (email) => axiosInstance.post('/verify/email', { email });
 // export const axiosGenerateEmailCode = (email) => axiosInstance.post('/verify/generateEmailCode', { email });
