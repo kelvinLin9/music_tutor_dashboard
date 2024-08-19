@@ -14,8 +14,8 @@ export const axiosInstance = axios.create({
 
 // interceptors(攔截器) 目的是在發送請求前將 token 加入 headers 
 axiosInstance.interceptors.request.use((config) => {
-  const token = document.cookie.replace(/(?:(?:^|.*;\s*)music_tutor\s*=\s*([^;]*).*$)|^.*$/, '$1');
-  // console.log(token)
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)music_tutor_beta\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  console.log(token)
   if (token) {
     config.headers.Authorization = token;
   }

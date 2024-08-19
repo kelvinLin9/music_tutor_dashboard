@@ -28,7 +28,7 @@ export const useUserStore = defineStore('userStore', () => {
     async(data) => {
       loginLoading.value = true;
       const res = await axiosLogin(data);
-      document.cookie = `music_tutor=${res.data.token}`;
+      document.cookie = `music_tutor_beta=${res.data.token}`;
       userInfo.value = res.data.user;
       console.log('login', userInfo.value)
       Toast.fire({
@@ -46,7 +46,12 @@ export const useUserStore = defineStore('userStore', () => {
       const res = await axiosGoogleLogin(token);
       console.log(res)
       if(res.data.status === true) {
-        document.cookie = `music_tutor=${res.data.token}`;
+        console.log(res.data.token)
+        const days = 7;
+const date = new Date();
+date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+document.cookie = `music_tutor_beta=${res.data.token}; expires=${date.toUTCString()}; path=/; secure; samesite=Strict`;
+
         userInfo.value = res.data.user;
         console.log('googleLogin', userInfo.value)
         Toast.fire({
@@ -104,7 +109,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   // logout
   const logout = () => {
-    document.cookie = `music_tutor=`;
+    document.cookie = `music_tutor_beta=`;
     userInfo.value = {}
     Toast.fire({
       icon: 'success',
