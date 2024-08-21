@@ -58,7 +58,7 @@ export const useUserStore = defineStore('userStore', () => {
           icon: 'success',
           title: '登入成功'
         });
-        // router.push('/');
+        router.push('/');
       }
     }, () => loginLoading.value = false)
   
