@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <h1>Callback</h1>
-    {{ $route.query.code }} -->
+    <h1>Callback</h1>
+    {{ $route.query.code }}
   </div>
 </template>
 

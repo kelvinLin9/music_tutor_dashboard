@@ -51,14 +51,14 @@ export const useUserStore = defineStore('userStore', () => {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         document.cookie = `music_tutor_beta=${res.data.token}; expires=${date.toUTCString()}; path=/; secure; samesite=Strict`;
-              
+
         userInfo.value = res.data.user;
         console.log('googleLogin', userInfo.value)
         Toast.fire({
           icon: 'success',
           title: '登入成功'
         });
-        router.push('/');
+        // router.push('/');
       }
     }, () => loginLoading.value = false)
   
