@@ -86,7 +86,7 @@ export const useUserStore = defineStore('userStore', () => {
         console.log(res)
         userInfo.value = res.data.user;
         if(!userInfo.value) {
-          router.push('/login')
+          // router.push('/login')
         }
         console.log('checkUser 驗證成功');
       } catch (error) {   
