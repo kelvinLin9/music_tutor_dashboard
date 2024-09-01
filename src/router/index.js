@@ -42,7 +42,7 @@ const router = createRouter({
     },
     {
       path: '/google/callback',
-      name: 'google-callback',
+      name: 'googleCallback',
       component: () => import('../views/Callback.vue')
     }
   ]
