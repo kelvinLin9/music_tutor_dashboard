@@ -91,7 +91,7 @@ export const useUserStore = defineStore('userStore', () => {
         console.log('checkUser 驗證成功');
       } catch (error) {   
         console.log('checkUser 驗證失敗', error)
-        router.push('/login')
+        // router.push('/login')
       }
       // console.log('checkUser 驗證成功');
     }
