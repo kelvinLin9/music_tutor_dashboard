@@ -1,0 +1,1 @@
+import{D as s,o as r,a,c,f as n,t as u,b as l}from"./index-Cz0Ne3-w.js";import{u as d}from"./user-jz-ZQvRH.js";const i=l("h1",null,"Callback",-1),k={__name:"Callback",setup(_){const e=s(),o=d().googleLogin;return r(()=>{console.log(e.query.code),o({code:e.query.code})}),(t,p)=>(a(),c("div",null,[i,n(" "+u(t.$route.query.code),1)]))}};export{k as default};
