@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory('/music_tutor_dashboard/'),
+  history: createWebHistory('/music_tutor_dashboard/'),
   routes: [
     {
       path: '/',
