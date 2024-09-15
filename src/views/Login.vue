@@ -250,8 +250,7 @@ const submitSignup = () => {
 const signInWithGoogle = () => {
   loginLoading.value = true;
   console.log(import.meta.env.VITE_GOOGLE_CALLBACK_URL);
-  console.log(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_CALLBACK_URL}&response_type=code&scope=email%20profile&access_type=offline`)
-  // window.location.href = `${import.meta.env.VITE_GOOGLE_CLIENT_ID}/users/google`
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_CALLBACK_URL}&response_type=code&scope=email%20profile&access_type=offline`
 
 }
 
