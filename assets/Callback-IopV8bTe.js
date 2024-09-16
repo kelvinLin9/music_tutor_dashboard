@@ -1,1 +1,0 @@
-import{D as r,o as t,a as s,c}from"./index-qN_PaeON.js";import{u as n}from"./user-CMCZhkot.js";const p={__name:"Callback",setup(a){const o=r(),e=n().googleLogin;return t(()=>{console.log(o.query.code),e({code:o.query.code})}),(l,_)=>(s(),c("div"))}};export{p as default};
