@@ -7,7 +7,7 @@ import {
   axiosSignup,
   axiosLogin,
   axiosGoogleLogin,
-  axiosCheck,
+  axiosCheckUser,
   axiosEditUser,
   axiosGetUser,
   // axiosVerifyEmail,
@@ -46,12 +46,8 @@ export const useUserStore = defineStore('userStore', () => {
       const res = await axiosGoogleLogin(token);
       console.log(res)
       if(res.data.status === true) {
-        console.log(res.data.token)
-        const days = 7;
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `music_tutor_beta=${res.data.token}; expires=${date.toUTCString()}; path=/; secure; samesite=Strict`;
-
+        // console.log(res.data.token)
+        localStorage.setItem('music_tutor_beta_token', res.data.token);
         userInfo.value = res.data.user;
         console.log('googleLogin', userInfo.value)
         Toast.fire({
@@ -82,7 +78,7 @@ export const useUserStore = defineStore('userStore', () => {
   // check
   const checkUser = async () => {
       try {
-        const res = await axiosCheck();
+        const res = await axiosCheckUser();
         console.log(res)
         userInfo.value = res.data.user;
         if(!userInfo.value) {
@@ -97,7 +93,7 @@ export const useUserStore = defineStore('userStore', () => {
     }
     // const checkUser = handleErrorAsync(
     //   async () => {
-    //     const res = await axiosCheck();
+    //     const res = await axiosCheckUser();
     //     console.log(res)
     //     userInfo.value = res.data.user;
     //     if(!userInfo.value) {

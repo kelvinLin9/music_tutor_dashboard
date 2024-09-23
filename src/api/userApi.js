@@ -14,8 +14,8 @@ export const axiosInstance = axios.create({
 
 // interceptors(攔截器) 目的是在發送請求前將 token 加入 headers 
 axiosInstance.interceptors.request.use((config) => {
-  const token = document.cookie.replace(/(?:(?:^|.*;\s*)music_tutor_beta\s*=\s*([^;]*).*$)|^.*$/, '$1');
-  console.log(token)
+  const token = localStorage.getItem('music_tutor_beta_token');
+  // console.log(token)
   if (token) {
     config.headers.Authorization = token;
   }
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use((response) => {
 export const axiosLogin= (loginData) => axiosInstance.post('/users/login', loginData);
 export const axiosSignup = (signupData) => axiosInstance.post('/users/signup', signupData);
 export const axiosForgotPassword = (data) => axiosInstance.post('/users/forgot', data);
-export const axiosCheck = () => axiosInstance.get('/users/check');
+export const axiosCheckUser = () => axiosInstance.get('/users/check');
 export const axiosGetUser = () => axiosInstance.get(`/users/profile`);
 export const axiosUploadFile = () => axiosInstance.post('/upload/file');
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
