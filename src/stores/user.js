@@ -105,7 +105,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   // logout
   const logout = () => {
-    document.cookie = `music_tutor_beta=`;
+    localStorage.setItem('music_tutor_beta_token', '');
     userInfo.value = {}
     Toast.fire({
       icon: 'success',
