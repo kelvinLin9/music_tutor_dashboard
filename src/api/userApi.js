@@ -44,6 +44,7 @@ export const axiosUploadFile = () => axiosInstance.post('/upload/file');
 export const axiosEditUser = (userData) => axiosInstance.put('/users', userData);
 
 // google
+// 沒用到
 export const axiosGoogleLogin = (googleToken) => axiosInstance.post('/users/googleClient/callback', googleToken);
 
 // Verify

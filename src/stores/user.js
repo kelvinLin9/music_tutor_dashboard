@@ -39,6 +39,7 @@ export const useUserStore = defineStore('userStore', () => {
       return true
     }, () => loginLoading.value = false)
 
+  // 沒用到
   const googleLogin = handleErrorAsync(
     async(token) => {
       console.log('googleLogin', token)
