@@ -3,7 +3,7 @@ import { Toast } from "@/mixins/swal"
 const showErrorToast = (message, code) => {
   Toast.fire({
     title: message || 'An unknown error occurred',
-    Text: code || '',
+    text: code || '',
     icon: 'error',
   });
 };

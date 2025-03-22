@@ -247,11 +247,39 @@ const submitSignup = () => {
   };
 };
 
-const signInWithGoogle = () => {
-  loginLoading.value = true;
-  console.log(import.meta.env.VITE_GOOGLE_CALLBACK_URL);
-  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_CALLBACK_URL}&response_type=code&scope=email%20profile&access_type=offline`
+// 找哪裡錯
+// const signInWithGoogle = () => {
+//   loginLoading.value = true;
+//   console.log(import.meta.env.VITE_GOOGLE_CALLBACK_URL);
+//   window.location.href = https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_CALLBACK_URL}&response_type=code&scope=email%20profile&access_type=offline
 
+// }
+
+
+
+const signInWithGoogle = () => {
+  // 檢查環境變量是否存在
+  if (!import.meta.env.VITE_GOOGLE_CLIENT_ID || !import.meta.env.VITE_GOOGLE_CALLBACK_URL) {
+    console.error('Google OAuth 環境變量未設置');
+    return;
+  }
+  
+  // 設置 loading 狀態
+  loginLoading.value = true;
+  
+  // 創建 OAuth URL，確保 URI 編碼
+  const clientId = encodeURIComponent(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  const redirectUri = encodeURIComponent(import.meta.env.VITE_GOOGLE_CALLBACK_URL);
+  const scope = encodeURIComponent('email profile openid');
+  
+  // 構建完整的 OAuth URL
+  const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&access_type=offline&prompt=consent`;
+  
+  // 記錄 URL 以便調試
+  console.log('Redirecting to:', googleAuthUrl);
+  
+  // 重定向到 Google 登入頁面
+  window.location.href = googleAuthUrl;
 }
 
 </script>
